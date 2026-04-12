@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Node
+node_modules/
+dist/
+
+# Eval outputs (large files)
+eval_results.json
+eval_progress.json
+eval_summary.json
+
+# Dataset (large file)
+dataset/
+
+
+.env
+**/.env
+notebooks/.env
