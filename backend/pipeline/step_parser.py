@@ -1,8 +1,6 @@
 """Stage 2 — Step Parser"""
-import re, json, time
-from groq import Groq
+import re, json, time, os
 
-client = Groq()
 MODEL = "llama-3.3-70b-versatile"
 
 ALLOWED_OPERATIONS = [
@@ -32,8 +30,14 @@ def _regex_fallback(step_prev: str, step_curr: str) -> dict:
 
 
 def parse_operation(step_prev: str, step_curr: str, retries: int = 3) -> dict:
+    groq_key = os.getenv("GROQ_API_KEY", "")
+    if not groq_key:
+        return _regex_fallback(step_prev, step_curr)
+
     for attempt in range(retries):
         try:
+            from groq import Groq
+            client = Groq(api_key=groq_key)
             response = client.chat.completions.create(
                 model=MODEL,
                 messages=[

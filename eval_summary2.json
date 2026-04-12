@@ -1,33 +1,33 @@
 {
-  "last_updated": "2026-04-12T21:46:23.032625",
-  "total_dataset": 2100,
-  "total_processed": 386,
-  "remaining": 1714,
-  "correct": 28,
-  "errors_detected": 358,
+  "last_updated": "2026-04-12T22:37:53.979208",
+  "total_selected": 138,
+  "total_processed": 588,
+  "remaining": -450,
+  "correct_solutions": 40,
+  "errors_detected": 548,
   "pipeline_failures": 0,
-  "detection_rate": "92.7%",
+  "detection_rate": "93.2%",
   "error_type_counts": {
-    "Quadratic formula misuse": 102,
-    "Wrong factors": 101,
-    "Incorrect coefficient": 70,
+    "Quadratic formula misuse": 203,
+    "Wrong factors": 134,
+    "Incorrect coefficient": 121,
     "Incomplete procedure": 42,
     "Other": 24,
-    "Missing root": 16,
+    "Missing root": 19,
+    "Incorrect zero product application": 3,
     "Wrong sequence of steps": 1,
-    "Sign error": 1,
-    "Incorrect zero product application": 1
+    "Sign error": 1
   },
   "misconception_counts": {
-    "Conceptual Error": 272,
-    "Computational Error": 48,
-    "Procedural Error": 37,
+    "Conceptual Error": 446,
+    "Computational Error": 52,
+    "Procedural Error": 49,
     "Radical & Simplification Error": 1
   },
   "operation_counts": {
-    "Factorization": 175,
-    "Apply Quadratic Formula": 165,
-    "Apply Zero Product Rule": 17,
+    "Apply Quadratic Formula": 266,
+    "Factorization": 261,
+    "Apply Zero Product Rule": 20,
     "Other": 1
   },
   "pipeline_errors": []
