@@ -173,6 +173,12 @@ def get_presets():
         },
     ]
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/analyze")
 def analyze(req: AnalyzeRequest):
