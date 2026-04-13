@@ -28,7 +28,7 @@ from pipeline.runner import run_pipeline
 
 DATASET_PATH  = r"C:\mariam\uni\bachelor\algebra-error-detector\dataset\quadratic_dataset.json"
 OUTPUT_PATH   = r"C:\mariam\uni\bachelor\algebra-error-detector\eval_results2.json"
-SUMMARY_PATH  = r"C:\mariam\uni\bachelor\algebra-error-detector\eval_summary2.json"
+SUMMARY_PATH  = r"C:\mariam\uni\bachelor\algebra-error-detector\eval_summary.json"
 PROGRESS_PATH = r"C:\mariam\uni\bachelor\algebra-error-detector\eval_progress2.json"
 
 DELAY_SECONDS = 2.0   # pause between entries — increase if hitting rate limits
@@ -36,21 +36,24 @@ DELAY_SECONDS = 2.0   # pause between entries — increase if hitting rate limit
 # ── Selected indices — 25 per error type, spread across full dataset ──────────
 
 SELECTED_INDICES = sorted([
-    # Arithmetic errors (25 original + 13 new)
+    # Arithmetic errors (25 original + 13 + 5 new = 43)
     402, 465, 528, 591, 654, 717, 780, 843, 906, 969,
     1032, 1095, 1158, 1221, 1284, 1347, 1410, 1473, 1536, 1599,
     1662, 1725, 1788, 1851, 1914,
     3, 150, 297, 451, 619, 787, 948, 1116, 1277, 1445, 1613, 1774, 1942,
-    # Radical errors (25 original + 13 new)
+    472, 801, 1130, 1459, 1795,
+    # Radical errors (25 original + 13 + 5 new = 43)
     400, 467, 533, 600, 666, 733, 799, 866, 932, 999,
     1065, 1132, 1198, 1265, 1331, 1398, 1464, 1531, 1597, 1664,
     1730, 1797, 1863, 1930, 1996,
     1, 155, 309, 470, 631, 792, 957, 1118, 1282, 1443, 1608, 1769, 1933,
-    # Factorization errors (25 original + 12 new)
+    218, 789, 1114, 1440, 1765,
+    # Factorization errors (25 original + 12 + 4 new = 41)
     401, 468, 534, 601, 667, 734, 800, 867, 933, 1000,
     1066, 1133, 1199, 1266, 1332, 1399, 1465, 1532, 1598, 1665,
     1731, 1798, 1864, 1931, 1997,
     2, 167, 331, 503, 678, 849, 1024, 1196, 1371, 1546, 1717, 1892,
+    58, 877, 1287, 1696,
     # Correct / incomplete (25 original — unchanged)
     403, 469, 536, 602, 669, 735, 802, 868, 935, 1001,
     1068, 1134, 1201, 1267, 1334, 1400, 1467, 1533, 1600, 1666,

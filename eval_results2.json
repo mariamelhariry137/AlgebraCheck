@@ -1223,28 +1223,6 @@
     "equation": "3x^2 + -36x + 108 = 0",
     "student_steps": [
       "3x^2 + -36x + 108 = 0",
-      "(x - 6)(x + 6) = 0"
-    ],
-    "all_correct": false,
-    "error_at_step": 2,
-    "wrong_step": "(x - 6)(x + 6) = 0",
-    "operation": "Other",
-    "error_type": "Wrong factors",
-    "error_detail": "Factorization should include 3 and be squared as 3(x-6)^2, not (x-6)(x+6).",
-    "misconception": "Conceptual Error",
-    "misconception_sub": "Other conceptual misunderstanding",
-    "confidence": 0.5,
-    "correct_steps": [
-      "(3*(x - 6)**2) = 0",
-      "x = 6"
-    ],
-    "feedback": "Step 1: At step 2, Other conceptual misunderstanding occurred during Other.\nStep 2: Make sure each transformation is mathematically valid.\nStep 3: From '3x^2 + -36x + 108 = 0', the correct path is: (3*(x - 6)**2) = 0 → x = 6."
-  },
-  {
-    "entry_index": 59,
-    "equation": "3x^2 + -36x + 108 = 0",
-    "student_steps": [
-      "3x^2 + -36x + 108 = 0",
       "x = (-(-36) ± √((-36)^2 - 4(3)(108)))/(2*3)",
       "1296 - 1296 = 1"
     ],
@@ -1264,7 +1242,7 @@
     "feedback": "Step 1: It looks like the quadratic formula was applied to the equation 3x^2 + -36x + 108 = 0, but the equation could have been simplified first, which might have led to a more straightforward solution. \nStep 2: The key concept to understand here is that before applying the quadratic formula, it's often helpful to see if the equation can be factored into a simpler form, which can make solving for x much easier.\nStep 3: To get the correct answer, we should have first tried to factor the given equation, noticing that 3x^2 - 36x + 108 can be expressed as 3*(x^2 - 12x + 36), which simplifies to 3*(x - 6)^2, leading us to the solution x = 6."
   },
   {
-    "entry_index": 60,
+    "entry_index": 59,
     "equation": "3x^2 + -36x + 108 = 0",
     "student_steps": [
       "3x^2 + -36x + 108 = 0",
@@ -1287,7 +1265,7 @@
     "feedback": "Step 1: It looks like there was a mistake in factoring the quadratic equation 3x^2 + -36x + 108 = 0, as the wrong factorization (x - 6)(x - 6) = 0 was provided, which doesn't take into account the leading coefficient 3. \nStep 2: To correctly factorize a quadratic equation, we need to understand that the leading coefficient must be factored out before factoring the rest of the expression, which is a key concept in algebra that helps us simplify and solve equations.\nStep 3: To get the correct answer, we should factor out the leading coefficient 3, resulting in 3*(x^2 - 12x + 36) = 0, which simplifies to 3*(x - 6)^2 = 0, and finally gives us the correct solution x = 6."
   },
   {
-    "entry_index": 61,
+    "entry_index": 60,
     "equation": "3x^2 + -36x + 108 = 0",
     "student_steps": [
       "3x^2 + -36x + 108 = 0",
@@ -1310,7 +1288,7 @@
     "feedback": "Step 1: It looks like there was an attempt to apply the quadratic formula, but the equation could have been simplified first, which led to unnecessary complexity. The equation 3x^2 + -36x + 108 = 0 can actually be simplified by factoring. \nStep 2: To understand where to go from here, remember that the quadratic formula is used to solve equations in the form ax^2 + bx + c = 0, but it's also important to look for simpler methods like factoring when possible. \nStep 3: By recognizing that 3x^2 - 36x + 108 can be factored into 3(x - 6)^2 = 0, we can easily solve for x by setting the factor equal to zero, which gives us x = 6, a much simpler and more straightforward solution."
   },
   {
-    "entry_index": 62,
+    "entry_index": 61,
     "equation": "3x^2 + -36x + 108 = 0",
     "student_steps": [
       "3x^2 + -36x + 108 = 0",
@@ -1332,7 +1310,7 @@
     "feedback": "Step 1: The mistake occurred because the factorization didn't account for the leading coefficient 3, resulting in an incorrect factorization. \nStep 2: To factorize the quadratic equation 3x^2 - 36x + 108 = 0 correctly, we need to understand that the factors should form a perfect square trinomial and consider the leading coefficient.\nStep 3: We can get the correct answer by recognizing the perfect square trinomial and factoring it as 3(x - 6)^2 = 0, which gives us the solution x = 6."
   },
   {
-    "entry_index": 63,
+    "entry_index": 62,
     "equation": "1x^2 + -11x + 30 = 0",
     "student_steps": [
       "1x^2 + -11x + 30 = 0",
@@ -1343,7 +1321,7 @@
     "all_correct": true
   },
   {
-    "entry_index": 64,
+    "entry_index": 63,
     "equation": "1x^2 + -11x + 30 = 0",
     "student_steps": [
       "1x^2 + -11x + 30 = 0",
@@ -1366,7 +1344,7 @@
     "feedback": "Step 1: It looks like you started to apply the quadratic formula but didn't complete the process to find the roots of the equation, which led to an incomplete solution. \nStep 2: To correctly solve the quadratic equation, you need to understand that the quadratic formula is used to find the roots of the equation, and it should be fully evaluated to get the correct answers.\nStep 3: To get the correct answer, you should have completed the calculation: x = (11 ± √(121 - 120))/2, which simplifies to x = (11 ± √1)/2, resulting in x = (11 ± 1)/2, giving you the roots x = 5 or x = 6."
   },
   {
-    "entry_index": 65,
+    "entry_index": 64,
     "equation": "1x^2 + -11x + 30 = 0",
     "student_steps": [
       "1x^2 + -11x + 30 = 0",
@@ -1388,7 +1366,7 @@
     "feedback": "Step 1: It looks like there was a mistake in the factorization process, where (x + 6) was used instead of (x - 6), which led to an incorrect solution. \nStep 2: To factorize a quadratic equation like 1x^2 + -11x + 30 = 0, we need to find two numbers that multiply to 30 and add up to -11, which are -6 and -5, so the correct factors should be (x - 6) and (x - 5).\nStep 3: Now, let's correct the mistake by using the right factors, so we have (x - 6)(x - 5) = 0, which gives us the solutions x = 6 or x = 5, and that's how we get the correct answers."
   },
   {
-    "entry_index": 66,
+    "entry_index": 65,
     "equation": "1x^2 + -11x + 30 = 0",
     "student_steps": [
       "1x^2 + -11x + 30 = 0",
@@ -1411,7 +1389,7 @@
     "feedback": "Step 1: It looks like you tried to use the quadratic formula on a quadratic equation that can be factored, which led to unnecessary complexity. The equation 1x^2 + -11x + 30 = 0 can actually be simplified using factoring. \nStep 2: The key concept to understand here is that not all quadratic equations require the quadratic formula - some can be solved more easily by factoring, which involves finding two numbers that multiply to the constant term and add to the coefficient of the x term. \nStep 3: To get the correct answer, you should have factored the equation into (x - 6)(x - 5) = 0, which gives you the solutions x = 5 or x = 6, a much simpler and more straightforward approach."
   },
   {
-    "entry_index": 67,
+    "entry_index": 66,
     "equation": "1x^2 + -11x + 30 = 0",
     "student_steps": [
       "1x^2 + -11x + 30 = 0",
@@ -1433,7 +1411,7 @@
     "feedback": "Step 1: It looks like you only considered one part of the equation, which led to missing the second root, the mistake happened because you only set one factor to zero. \nStep 2: To fix this, remember the Zero Product Rule, which states that if the product of two factors is zero, then at least one of the factors must be zero, so we set each factor equal to zero.\nStep 3: Apply the Zero Product Rule correctly by setting each factor to zero, so we get x - 5 = 0 and x - 6 = 0, which gives us the correct solutions x = 5 and x = 6."
   },
   {
-    "entry_index": 68,
+    "entry_index": 67,
     "equation": "1x^2 + -11x + 30 = 0",
     "student_steps": [
       "1x^2 + -11x + 30 = 0",
@@ -1456,7 +1434,7 @@
     "feedback": "Step 1: It looks like the quadratic formula was applied to an equation that could have been easily factored, which led to unnecessary complexity, and the equation 1x^2 + -11x + 30 = 0 can actually be simplified by factoring. \nStep 2: The key concept to understand here is that not all quadratic equations need the quadratic formula, and some can be solved more simply by factoring, which involves finding two numbers that multiply to the constant term and add to the coefficient of the x term. \nStep 3: To get the correct answer, we should factor the equation into (x - 6)(x - 5) = 0, which gives us the solutions x = 5 or x = 6, and this approach is much more straightforward and efficient for this particular equation."
   },
   {
-    "entry_index": 69,
+    "entry_index": 68,
     "equation": "1x^2 + -11x + 30 = 0",
     "student_steps": [
       "1x^2 + -11x + 30 = 0",
@@ -1478,7 +1456,7 @@
     "feedback": "Step 1: It looks like there was a mistake in the factorization process, the given equation 1x^2 + -11x + 30 = 0 was incorrectly factored as (x + 1)(x + 4) = 0, which doesn't match the original equation. \nStep 2: To correctly factorize the equation, we need to find two numbers that multiply to 30 and add up to -11, which are -5 and -6, so the correct factors should be (x - 5) and (x - 6) to produce the -11x and +30 terms.\nStep 3: Now, let's factor the equation correctly as (x - 5)(x - 6) = 0, which gives us the solutions x = 5 or x = 6, so we can see that the correct factorization leads us to the right answers."
   },
   {
-    "entry_index": 70,
+    "entry_index": 69,
     "equation": "1x^2 + 1x + 0 = 0",
     "student_steps": [
       "1x^2 + 1x + 0 = 0",
@@ -1489,7 +1467,7 @@
     "all_correct": true
   },
   {
-    "entry_index": 71,
+    "entry_index": 70,
     "equation": "1x^2 + 1x + 0 = 0",
     "student_steps": [
       "1x^2 + 1x + 0 = 0",
@@ -1512,7 +1490,7 @@
     "feedback": "Step 1: It looks like there was a mistake in simplifying the solutions for x after applying the quadratic formula, the equation 1x^2 + 1x + 0 = 0 was not fully solved. \nStep 2: To correctly solve this, remember that the quadratic formula is x = (-(b) ± √((b)^2 - 4(a)(c)))/(2*a), but also consider factoring the quadratic equation if possible, as in x^2 + x = x(x + 1) = 0. \nStep 3: To get the correct answer, factor the quadratic equation to (x*(x + 1)) = 0, which gives the solutions x = 0 and x = -1, making sure to simplify the equation fully to find the roots of the equation."
   },
   {
-    "entry_index": 72,
+    "entry_index": 71,
     "equation": "1x^2 + 1x + 0 = 0",
     "student_steps": [
       "1x^2 + 1x + 0 = 0",
@@ -1521,7 +1499,7 @@
     "all_correct": true
   },
   {
-    "entry_index": 73,
+    "entry_index": 72,
     "equation": "1x^2 + 1x + 0 = 0",
     "student_steps": [
       "1x^2 + 1x + 0 = 0",
@@ -1544,7 +1522,7 @@
     "feedback": "Step 1: It looks like you tried to use the quadratic formula, but the equation could have been solved in a simpler way, which led to unnecessary complexity. \nStep 2: The key concept to understand here is that not all quadratic equations need the quadratic formula, and factoring can often be a more straightforward approach when possible. \nStep 3: To get the correct answer, you could have factored the equation into (x)(x+1) = 0, which gives you the solutions x = 0 or x = -1, making it a simpler and more efficient way to solve the problem."
   },
   {
-    "entry_index": 74,
+    "entry_index": 73,
     "equation": "1x^2 + 1x + 0 = 0",
     "student_steps": [
       "1x^2 + 1x + 0 = 0",
@@ -1566,7 +1544,7 @@
     "feedback": "Step 1: It looks like you only considered one part of the equation, which led to missing the other root, and that's why you ended up with just x = 0 as the solution. \nStep 2: The key concept to remember here is the Zero Product Rule, which states that if the product of two factors equals zero, then at least one of the factors must be zero, so we need to set each factor equal to zero to find all possible solutions. \nStep 3: To get the correct answer, you should set each factor equal to zero and solve for x, which gives you x - 0 = 0 and x - (-1) = 0, resulting in x = 0 and x = -1 as the solutions, so the correct answer is x = -1 or x = 0."
   },
   {
-    "entry_index": 75,
+    "entry_index": 74,
     "equation": "1x^2 + 1x + 0 = 0",
     "student_steps": [
       "1x^2 + 1x + 0 = 0",
@@ -1589,7 +1567,7 @@
     "feedback": "Step 1: It looks like there was a mix-up in presenting the solution, where the quadratic formula was applied but the answer was given in factored form, which is a different method of solving the equation. \nStep 2: To understand this, we need to recognize that the quadratic formula and factoring are two different methods to solve quadratic equations, and while the quadratic formula is a general method, factoring is a simpler, more straightforward approach when it's applicable.\nStep 3: To get the correct answer using the quadratic formula, we should have completed the calculation: x = (-(1) ± √((1)^2 - 4(1)(0)))/(2*1), which simplifies to x = (-1 ± √1)/2, resulting in x = 0 or x = -1, matching the factored solution."
   },
   {
-    "entry_index": 76,
+    "entry_index": 75,
     "equation": "1x^2 + 1x + 0 = 0",
     "student_steps": [
       "1x^2 + 1x + 0 = 0",
@@ -1611,7 +1589,7 @@
     "feedback": "Step 1: It looks like there was a mistake in the factorization process, where the equation 1x^2 + 1x + 0 = 0 was incorrectly factored into (x + 1)(x + 4) = 0, instead of using the correct factors. \nStep 2: To understand where this went wrong, we need to remember that factorization involves finding two expressions that multiply together to give the original equation, and in this case, the correct factors should be x and (x+1) because 1x^2 + 1x can be seen as x(x + 1).\nStep 3: To get the correct answer, we should factor the equation into x(x + 1) = 0, which gives us the solutions x = 0 or x = -1, showing that the correct factors lead to the right roots of the equation."
   },
   {
-    "entry_index": 77,
+    "entry_index": 76,
     "equation": "1x^2 + 5x + -50 = 0",
     "student_steps": [
       "1x^2 + 5x + -50 = 0",
@@ -1622,7 +1600,7 @@
     "all_correct": true
   },
   {
-    "entry_index": 78,
+    "entry_index": 77,
     "equation": "1x^2 + 5x + -50 = 0",
     "student_steps": [
       "1x^2 + 5x + -50 = 0",
@@ -1645,7 +1623,7 @@
     "feedback": "Step 1: It seems like there was a mistake in plugging the values into the quadratic formula, specifically with calculating the discriminant and solving for x, which led to an incorrect application of the formula. \nStep 2: To correctly solve the equation 1x^2 + 5x + -50 = 0 using the quadratic formula, remember that the formula is x = (-(b) ± √((b)^2 - 4(a)(c)))/(2(a)), where a, b, and c are coefficients from the equation ax^2 + bx + c = 0. \nStep 3: Applying the quadratic formula correctly, we get x = (-(5) ± √((5)^2 - 4(1)(-50)))/(2*1) = (-(5) ± √(25 + 200))/(2) = (-(5) ± √225)/(2) = (-(5) ± 15)/(2), which gives us two possible solutions: x = (-5 + 15)/(2) = 5 and x = (-5 - 15)/(2) = -10."
   },
   {
-    "entry_index": 79,
+    "entry_index": 78,
     "equation": "1x^2 + 5x + -50 = 0",
     "student_steps": [
       "1x^2 + 5x + -50 = 0",
@@ -1654,7 +1632,7 @@
     "all_correct": true
   },
   {
-    "entry_index": 80,
+    "entry_index": 79,
     "equation": "1x^2 + 5x + -50 = 0",
     "student_steps": [
       "1x^2 + 5x + -50 = 0",
@@ -1677,7 +1655,7 @@
     "feedback": "Step 1: It looks like there was a mix-up in solving the quadratic equation, where the quadratic formula was started but then factoring was used to find the roots, causing confusion. \nStep 2: The key concept to understand here is that when using the quadratic formula, you should see it through to the end to find the roots, but in simpler cases like this one, factoring can be a more straightforward approach to find the roots of the equation.\nStep 3: To get the correct answer, you can either complete the quadratic formula correctly or, for this specific equation, factor it as (x - 5)(x + 10) = 0, which gives you the roots x = 5 or x = -10, making the factoring method the simpler and more efficient choice in this case."
   },
   {
-    "entry_index": 81,
+    "entry_index": 80,
     "equation": "1x^2 + 5x + -50 = 0",
     "student_steps": [
       "1x^2 + 5x + -50 = 0",
@@ -1699,7 +1677,7 @@
     "feedback": "Step 1: It looks like there was a mistake in applying the Zero Product Rule, where only one possible solution was considered, leading to a missing root. \nStep 2: To fix this, remember that when using the Zero Product Rule, both factors must be set to zero to find all possible solutions, so we need to consider each factor separately. \nStep 3: So, to get the correct answer, we set each factor equal to zero and solve for x: x - 5 = 0 gives x = 5, and x + 10 = 0 gives x = -10, resulting in two possible solutions: x = -10 or x = 5."
   },
   {
-    "entry_index": 82,
+    "entry_index": 81,
     "equation": "1x^2 + 5x + -50 = 0",
     "student_steps": [
       "1x^2 + 5x + -50 = 0",
@@ -1722,7 +1700,7 @@
     "feedback": "Step 1: It seems like there was a mistake in plugging the values into the quadratic formula, specifically with calculating the discriminant or simplifying the expression, which led to an incorrect solution. \nStep 2: To solve quadratic equations in the form ax^2 + bx + c = 0, we use the quadratic formula: x = (-b ± √(b^2 - 4ac))/(2a), where a, b, and c are coefficients from the equation, and we must carefully substitute these values into the formula. \nStep 3: To get the correct answer, we should correctly apply the quadratic formula with the given coefficients: a = 1, b = 5, and c = -50, so x = (-(5) ± √((5)^2 - 4(1)(-50)))/(2*1), which simplifies to x = (-5 ± √(25 + 200))/2, and further to x = (-5 ± √225)/2, resulting in x = (-5 ± 15)/2, giving us two possible solutions: x = (-5 + 15)/2 = 5 or x = (-5 - 15)/2 = -10."
   },
   {
-    "entry_index": 83,
+    "entry_index": 82,
     "equation": "1x^2 + 5x + -50 = 0",
     "student_steps": [
       "1x^2 + 5x + -50 = 0",
@@ -1744,7 +1722,7 @@
     "feedback": "Step 1: The mistake occurred because the factors (x + 1) and (x + 4) do not multiply to give the constant term -50, instead they give +4, indicating a misunderstanding of the factorization process. \nStep 2: To factorize a quadratic equation like 1x^2 + 5x + -50 = 0, we need to find two numbers that multiply to -50 and add up to 5, which are the coefficients of the x term, and these numbers are -5 and 10.\nStep 3: Using these correct numbers, we can rewrite the equation as (x - 5)(x + 10) = 0, which gives us the solutions x = -10 or x = 5, so make sure to double-check your factors to get the right answers."
   },
   {
-    "entry_index": 84,
+    "entry_index": 83,
     "equation": "1x^2 + 5x + 4 = 0",
     "student_steps": [
       "1x^2 + 5x + 4 = 0",
@@ -1755,7 +1733,7 @@
     "all_correct": true
   },
   {
-    "entry_index": 85,
+    "entry_index": 84,
     "equation": "1x^2 + 5x + 4 = 0",
     "student_steps": [
       "1x^2 + 5x + 4 = 0",
@@ -1778,7 +1756,7 @@
     "feedback": "Step 1: It seems like there was a mix-up in solving the quadratic equation 1x^2 + 5x + 4 = 0, where the quadratic formula was applied but the correct answer was given in factored form instead. \nStep 2: To understand this, we need to recognize that the quadratic formula x = (-(b) ± √((b)^2 - 4(a)(c)))/(2*a) is used to find the roots of a quadratic equation ax^2 + bx + c = 0, but factoring is another method to achieve the same goal.\nStep 3: To get the correct answer using the quadratic formula, we should have completed the calculation x = (-(5) ± √((5)^2 - 4(1)(4)))/(2*1) which simplifies to x = (-5 ± √(25 - 16))/2, resulting in x = (-5 ± √9)/2, and finally x = (-5 ± 3)/2, giving us x = -4 or x = -1."
   },
   {
-    "entry_index": 86,
+    "entry_index": 85,
     "equation": "1x^2 + 5x + 4 = 0",
     "student_steps": [
       "1x^2 + 5x + 4 = 0",
@@ -1787,7 +1765,7 @@
     "all_correct": true
   },
   {
-    "entry_index": 87,
+    "entry_index": 86,
     "equation": "1x^2 + 5x + 4 = 0",
     "student_steps": [
       "1x^2 + 5x + 4 = 0",
@@ -1810,7 +1788,7 @@
     "feedback": "Step 1: It seems like there was a computational error when applying the quadratic formula, specifically an arithmetic mistake that led to incorrect solutions for x. \nStep 2: To understand where it went wrong, remember the quadratic formula is x = (-(b) ± √((b)^2 - 4(a)(c)))/(2*a), and in this case, a = 1, b = 5, and c = 4, so the formula should be applied carefully to avoid arithmetic errors. \nStep 3: To get the correct answer, plug the values into the quadratic formula correctly: x = (-(5) ± √((5)^2 - 4(1)(4)))/(2*1), which simplifies to x = (-5 ± √(25 - 16))/2, then to x = (-5 ± √9)/2, and finally to x = (-5 ± 3)/2, resulting in x = -4 or x = -1."
   },
   {
-    "entry_index": 88,
+    "entry_index": 87,
     "equation": "1x^2 + 5x + 4 = 0",
     "student_steps": [
       "1x^2 + 5x + 4 = 0",
@@ -1832,7 +1810,7 @@
     "feedback": "Step 1: It looks like there was a mistake in applying the Zero Product Rule, where only one possible solution was considered, leading to a missing root. \nStep 2: To fix this, remember that when using the Zero Product Rule, both factors must be set to zero to find all possible solutions, as the rule states that if a*b = 0, then either a = 0 or b = 0.\nStep 3: So, to get the correct answer, we need to set each factor equal to zero and solve for x, which gives us x - -4 = 0 and x - -1 = 0, resulting in x = -4 or x = -1."
   },
   {
-    "entry_index": 89,
+    "entry_index": 88,
     "equation": "1x^2 + 5x + 4 = 0",
     "student_steps": [
       "1x^2 + 5x + 4 = 0",
@@ -1855,7 +1833,7 @@
     "feedback": "Step 1: The mistake occurred because the quadratic formula was applied correctly, but the solutions for x were not fully simplified, resulting in a computational error. \nStep 2: To understand this, it's essential to know the quadratic formula, which is x = (-(b) ± √((b)^2 - 4(a)(c)))/(2*a), and to simplify the expression under the square root and solve for x.\nStep 3: To get the correct answer, plug the values from the equation 1x^2 + 5x + 4 = 0 into the quadratic formula, which gives x = (-(5) ± √((5)^2 - 4(1)(4)))/(2*1), then simplify to get x = (-(5) ± √(25 - 16))/2, and finally solve for x to get x = -1 or x = -4."
   },
   {
-    "entry_index": 90,
+    "entry_index": 89,
     "equation": "1x^2 + 5x + 4 = 0",
     "student_steps": [
       "1x^2 + 5x + 4 = 0",
@@ -1864,7 +1842,7 @@
     "all_correct": true
   },
   {
-    "entry_index": 91,
+    "entry_index": 90,
     "equation": "2x^2 + 14x + 24 = 0",
     "student_steps": [
       "2x^2 + 14x + 24 = 0",
@@ -1888,7 +1866,7 @@
     "feedback": "Step 1: It looks like there was a mistake in factoring the quadratic equation 2x^2 + 14x + 24 = 0, as the factorization (x - -4)(x - -3) = 0 doesn't account for the leading coefficient 2. \nStep 2: To factorize a quadratic equation, we need to remember that the factorization must include the leading coefficient to match the original equation, so we should look for two numbers that multiply to give the constant term and add to give the coefficient of the middle term, while also considering the leading coefficient.\nStep 3: The correct factorization is (2*(x + 3)*(x + 4)) = 0, which gives us the solutions x = -4 or x = -3, so make sure to include that leading coefficient when factoring to get the right answers."
   },
   {
-    "entry_index": 92,
+    "entry_index": 91,
     "equation": "2x^2 + 14x + 24 = 0",
     "student_steps": [
       "2x^2 + 14x + 24 = 0",
@@ -1911,7 +1889,7 @@
     "feedback": "Step 1: It seems like there was a mistake in applying the quadratic formula, the calculation of the roots was not completed, resulting in an incomplete solution. \nStep 2: To solve quadratic equations, we need to remember the quadratic formula: x = (-b ± √(b^2 - 4ac))/(2a), where a, b, and c are coefficients from the equation ax^2 + bx + c = 0, and make sure to complete all the steps in the calculation.\nStep 3: To get the correct answer, we should have completed the calculation: x = (-(14) ± √((14)^2 - 4(2)(24)))/(2*2), which simplifies to x = (-14 ± √(196 - 192))/4, then to x = (-14 ± √4)/4, and finally to x = (-14 ± 2)/4, resulting in two possible solutions: x = (-14 + 2)/4 = -3 or x = (-14 - 2)/4 = -4, which can also be found by factoring the quadratic equation as 2(x + 3)(x + 4) = 0."
   },
   {
-    "entry_index": 93,
+    "entry_index": 92,
     "equation": "2x^2 + 14x + 24 = 0",
     "student_steps": [
       "2x^2 + 14x + 24 = 0",
@@ -1933,7 +1911,7 @@
     "feedback": "Step 1: It looks like there was a mistake in factoring the quadratic equation 2x^2 + 14x + 24 = 0, the factorization was incorrect because it didn't account for the leading coefficient 2. \nStep 2: To factorize a quadratic equation of the form ax^2 + bx + c = 0, we need to find two numbers that multiply to ac and add up to b, and also consider the leading coefficient a when writing the factored form.\nStep 3: The correct factorization is 2(x + 3)(x + 4) = 0, which gives us the solutions x = -3 or x = -4, so make sure to include that leading coefficient when factoring to get the right answers."
   },
   {
-    "entry_index": 94,
+    "entry_index": 93,
     "equation": "2x^2 + 14x + 24 = 0",
     "student_steps": [
       "2x^2 + 14x + 24 = 0",
@@ -1956,7 +1934,7 @@
     "feedback": "Step 1: The mistake occurred because of incorrect substitution into the quadratic formula, where the coefficients from the equation 2x^2 + 14x + 24 = 0 were not correctly applied, leading to a computational error. \nStep 2: To solve quadratic equations of the form ax^2 + bx + c = 0, we need to apply the quadratic formula x = (-b ± √(b^2 - 4ac))/(2a), where a, b, and c are the coefficients from the equation, and ensure that these coefficients are correctly substituted into the formula. \nStep 3: To get the correct answer, we should factor the given equation 2x^2 + 14x + 24 = 0 into (2*(x + 3)*(x + 4)) = 0, which gives us the solutions x = -4 or x = -3, or apply the quadratic formula with the correct coefficients: x = (-(14) ± √((14)^2 - 4*2*24))/(2*2), simplifying correctly to find the roots."
   },
   {
-    "entry_index": 95,
+    "entry_index": 94,
     "equation": "2x^2 + 14x + 24 = 0",
     "student_steps": [
       "2x^2 + 14x + 24 = 0",
@@ -1979,7 +1957,7 @@
     "feedback": "Step 1: It looks like there was a mistake in factorizing the quadratic equation 2x^2 + 14x + 24 = 0, as the factorization (x - -4)(x - -3) = 0 doesn't take into account the leading coefficient 2. \nStep 2: To correctly factorize a quadratic equation of the form ax^2 + bx + c = 0, we need to find two numbers that multiply to ac and add up to b, and also consider the leading coefficient a when writing the factors.\nStep 3: So, to get the correct answer, we should factor the equation as 2(x + 3)(x + 4) = 0, which gives us the solutions x = -3 or x = -4, and remember to always include the leading coefficient in the factorization process."
   },
   {
-    "entry_index": 96,
+    "entry_index": 95,
     "equation": "2x^2 + 14x + 24 = 0",
     "student_steps": [
       "2x^2 + 14x + 24 = 0",
@@ -2002,7 +1980,7 @@
     "feedback": "Step 1: The mistake occurred because of incorrect substitution into the quadratic formula, specifically with the coefficients and constants in the equation 2x^2 + 14x + 24 = 0. \nStep 2: To fix this, we need to understand the quadratic formula, which is x = (-b ± √(b^2 - 4ac))/(2a), where a, b, and c are the coefficients from the equation ax^2 + bx + c = 0. \nStep 3: Applying the quadratic formula correctly, we first factor the equation to get 2(x + 3)(x + 4) = 0, which gives us the solutions x = -3 or x = -4, or we can directly apply the formula with the correct values of a = 2, b = 14, and c = 24 to get the correct solutions."
   },
   {
-    "entry_index": 97,
+    "entry_index": 96,
     "equation": "2x^2 + 14x + 24 = 0",
     "student_steps": [
       "2x^2 + 14x + 24 = 0",
@@ -2024,7 +2002,7 @@
     "feedback": "Step 1: The mistake occurred because the factorization was done without considering the leading coefficient 2, resulting in incorrect factors. \nStep 2: To factorize a quadratic equation like 2x^2 + 14x + 24 = 0, we need to find two numbers that multiply to 2*24 = 48 and add to 14, which are 12 and 2, leading to the factors (2x + 4)(x + 6) or more accurately (2*(x + 3)*(x + 4)) after factoring out the common factor.\nStep 3: To get the correct answer, we should factor the quadratic equation as (2*(x + 3)*(x + 4)) = 0, which gives us the solutions x = -4 or x = -3 by setting each factor equal to zero."
   },
   {
-    "entry_index": 98,
+    "entry_index": 97,
     "equation": "3x^2 + -24x + 45 = 0",
     "student_steps": [
       "3x^2 + -24x + 45 = 0",
@@ -2048,7 +2026,7 @@
     "feedback": "Step 1: It looks like there was a mistake in factoring the quadratic equation 3x^2 + -24x + 45 = 0, as the wrong factors were used, resulting in (x - 3)(x - 5) = 0, which doesn't account for the leading coefficient 3. \nStep 2: To correctly factor a quadratic equation, we need to remember that the factors must multiply to the constant term (in this case, 45) and add up to the coefficient of the x term (in this case, -24), while also considering the leading coefficient, which in this case is 3.\nStep 3: To get the correct answer, we should factor the equation as 3(x - 5)(x - 3) = 0, which then gives us the solutions x = 3 or x = 5, so don't worry, it's an easy fix and you'll get the hang of factoring in no time."
   },
   {
-    "entry_index": 99,
+    "entry_index": 98,
     "equation": "3x^2 + -24x + 45 = 0",
     "student_steps": [
       "3x^2 + -24x + 45 = 0",
@@ -2071,7 +2049,7 @@
     "feedback": "Step 1: It looks like you applied the quadratic formula correctly, but didn't consider a simpler approach using factoring, which could have made the problem easier to solve. \nStep 2: The key concept to understand here is that not all quadratic equations require the quadratic formula - some can be factored into simpler expressions, making it easier to find the roots.\nStep 3: To get the correct answer, you could have factored the original equation 3x^2 + -24x + 45 = 0 into (3*(x - 5)*(x - 3)) = 0, which gives you the roots x = 3 or x = 5, a much simpler and more straightforward solution."
   },
   {
-    "entry_index": 100,
+    "entry_index": 99,
     "equation": "3x^2 + -24x + 45 = 0",
     "student_steps": [
       "3x^2 + -24x + 45 = 0",
@@ -2093,7 +2071,7 @@
     "feedback": "Step 1: It looks like there was a mistake in factoring the quadratic equation 3x^2 + -24x + 45 = 0, the factors didn't include the leading coefficient and the correct roots. \nStep 2: To factor a quadratic equation, we need to find two numbers that multiply to the constant term and add up to the coefficient of the x term, also considering the leading coefficient, in this case, the correct factors should include 3 and the correct roots.\nStep 3: To get the correct answer, we should factor the equation as (3*(x - 5)*(x - 3)) = 0, which gives us the solutions x = 3 or x = 5, so don't forget to include the leading coefficient and double-check those roots."
   },
   {
-    "entry_index": 101,
+    "entry_index": 100,
     "equation": "3x^2 + -24x + 45 = 0",
     "student_steps": [
       "3x^2 + -24x + 45 = 0",
@@ -2116,7 +2094,7 @@
     "feedback": "Step 1: It looks like you started to apply the quadratic formula correctly, but didn't quite finish simplifying to find the values of x, which led to an incomplete solution. \nStep 2: To solve quadratic equations like 3x^2 + -24x + 45 = 0, you need to understand that after applying the quadratic formula, you must simplify the expression under the square root and then solve for x.\nStep 3: To get the correct answer, after applying the quadratic formula, you should simplify the expression to get x = (24 ± √(576 - 540))/6, which simplifies further to x = (24 ± √36)/6, and finally to x = (24 ± 6)/6, resulting in x = 5 or x = 3."
   },
   {
-    "entry_index": 102,
+    "entry_index": 101,
     "equation": "3x^2 + -24x + 45 = 0",
     "student_steps": [
       "3x^2 + -24x + 45 = 0",
@@ -2139,7 +2117,7 @@
     "feedback": "Step 1: It looks like there was a mistake in the factorization process, the equation 3x^2 + -24x + 45 = 0 was not factored correctly, resulting in (x - 3)(x - 5) = 0, which is missing the leading coefficient. \nStep 2: To understand where this went wrong, we need to remember that when factoring a quadratic equation of the form ax^2 + bx + c, we need to make sure we're considering the leading coefficient 'a' in our factors, in this case, the correct factorization should include the leading coefficient 3. \nStep 3: To get the correct answer, we should factor the equation as 3(x - 5)(x - 3) = 0, which then gives us the solutions x = 3 or x = 5, so don't worry, it's an easy fix and you'll get the hang of it with practice."
   },
   {
-    "entry_index": 103,
+    "entry_index": 102,
     "equation": "3x^2 + -24x + 45 = 0",
     "student_steps": [
       "3x^2 + -24x + 45 = 0",
@@ -2162,7 +2140,7 @@
     "feedback": "Step 1: It looks like there was a mistake in applying the quadratic formula, the equation 3x^2 + -24x + 45 = 0 was not fully simplified, leading to incorrect calculations. \nStep 2: To solve quadratic equations, we need to understand the quadratic formula, which is x = (-b ± √(b^2 - 4ac))/(2a), where a, b, and c are coefficients from the equation ax^2 + bx + c = 0, and we should also consider factoring if possible.\nStep 3: To get the correct answer, we should first try to factor the quadratic equation, in this case, 3x^2 - 24x + 45 can be factored into 3*(x - 5)*(x - 3) = 0, which gives us the solutions x = 3 and x = 5, or if factoring is not straightforward, apply the quadratic formula correctly and simplify the expression to find the roots of the equation."
   },
   {
-    "entry_index": 104,
+    "entry_index": 103,
     "equation": "3x^2 + -24x + 45 = 0",
     "student_steps": [
       "3x^2 + -24x + 45 = 0",
@@ -4697,29 +4675,6 @@
       "x = 0 OR x = 7"
     ],
     "feedback": "Step 1: The mistake occurred because the factorization didn't account for the leading coefficient 2, resulting in an incomplete factorization. \nStep 2: To factorize a quadratic equation like 2x^2 + -14x + 0 = 0, we need to understand that the factorization should include all coefficients and constants, and find two numbers that multiply to 0 and add up to -14, considering the leading coefficient.\nStep 3: To get the correct answer, we should factor the equation as 2x^2 - 14x = 0, then factor out 2x to get 2x(x - 7) = 0, which gives us the roots x = 0 or x = 7, so don't worry, you'll get the hang of it with practice."
-  },
-  {
-    "entry_index": 218,
-    "equation": "2x^2 + -14x + 0 = 0",
-    "student_steps": [
-      "2x^2 + -14x + 0 = 0",
-      "x = (-(-14) ± √((-14)^2 - 4(2)(0)))/(2*2)",
-      "x = (-(-14) ± √196)/(2*2)"
-    ],
-    "all_correct": false,
-    "error_at_step": 2,
-    "wrong_step": "x = (-(-14) ± √((-14)^2 - 4(2)(0)))/(2*2)",
-    "operation": "Apply Quadratic Formula",
-    "error_type": "Quadratic formula misuse",
-    "error_detail": "The quadratic formula was not applied correctly; factoring and solving for roots is a more appropriate and simpler method for this equation.",
-    "misconception": "Radical & Simplification Error",
-    "misconception_sub": "Discriminant calculation error",
-    "confidence": 0.7,
-    "correct_steps": [
-      "(2*x*(x - 7)) = 0",
-      "x = 0 OR x = 7"
-    ],
-    "feedback": "Step 1: At step 2, Discriminant calculation error occurred during Apply Quadratic Formula.\nStep 2: Make sure each transformation is mathematically valid.\nStep 3: From '2x^2 + -14x + 0 = 0', the correct path is: (2*x*(x - 7)) = 0 → x = 0 OR x = 7."
   },
   {
     "entry_index": 219,
@@ -12896,5 +12851,323 @@
       "x = -8 OR x = 10"
     ],
     "feedback": "Step 1: The mistake occurred because the factorization was done incorrectly, missing the coefficient 3 and having incorrect signs in the factors, resulting in (x - -8)(x - 10) instead of the correct factorization. \nStep 2: To understand the correct factorization, we need to remember that when factoring a quadratic equation of the form ax^2 + bx + c, we need to find two numbers that multiply to ac and add up to b, and also consider the coefficient a in the factorization.\nStep 3: To get the correct answer, we should have factored the given equation 3x^2 + -6x + -240 = 0 into (3*(x - 10)*(x + 8)) = 0, which gives us the solutions x = -8 or x = 10, by correctly applying the factorization rules and considering the coefficient 3."
+  },
+  {
+    "entry_index": 58,
+    "equation": "3x^2 + -36x + 108 = 0",
+    "student_steps": [
+      "3x^2 + -36x + 108 = 0",
+      "(x - 6)(x + 6) = 0"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "(x - 6)(x + 6) = 0",
+    "operation": "Factorization",
+    "error_type": "Incorrect coefficient",
+    "error_detail": "The factorization should include the leading coefficient 3 and recognize the perfect square trinomial, not (x - 6)(x + 6).",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Misunderstanding of factorization",
+    "confidence": 0.9,
+    "correct_steps": [
+      "(3*(x - 6)**2) = 0",
+      "x = 6"
+    ],
+    "feedback": "Step 1: It looks like there was a mistake in factoring the quadratic equation 3x^2 - 36x + 108 = 0, as the factorization (x - 6)(x + 6) = 0 doesn't take into account the leading coefficient 3 and the perfect square trinomial. \nStep 2: To correctly factor this equation, we need to recognize that it's a perfect square trinomial and factor it as 3*(x - 6)^2 = 0, which includes the leading coefficient and the correct factorization.\nStep 3: Now, to find the correct answer, we can set 3*(x - 6)^2 = 0 and solve for x, which gives us x = 6, so don't worry, we can get the correct answer with a little practice and understanding of factorization concepts."
+  },
+  {
+    "entry_index": 218,
+    "equation": "2x^2 + -14x + 0 = 0",
+    "student_steps": [
+      "2x^2 + -14x + 0 = 0",
+      "x = (-(-14) ± √((-14)^2 - 4(2)(0)))/(2*2)",
+      "x = (-(-14) ± √196)/(2*2)"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "x = (-(-14) ± √((-14)^2 - 4(2)(0)))/(2*2)",
+    "operation": "Apply Quadratic Formula",
+    "error_type": "Quadratic formula misuse",
+    "error_detail": "The quadratic formula was not applied correctly; factoring and solving for roots is a more appropriate and simpler method for this equation.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Other conceptual misunderstanding",
+    "confidence": 0.8,
+    "correct_steps": [
+      "(2*x*(x - 7)) = 0",
+      "x = 0 OR x = 7"
+    ],
+    "feedback": "Step 1: It seems like there was a mistake in applying the quadratic formula, as the equation 2x^2 - 14x = 0 can be simplified and factored instead of using the formula. The error occurred because the formula was used unnecessarily, making the solution more complicated than it needed to be. \nStep 2: To understand where to go from here, it's essential to recognize that the quadratic formula is used to find the roots of a quadratic equation when it can't be easily factored, but in simpler cases like this one, factoring is a more straightforward approach. \nStep 3: To get the correct answer, we should factor the equation 2x^2 - 14x = 0 into 2x(x - 7) = 0, which gives us two possible solutions: x = 0 or x = 7, making the equation much easier to solve without the quadratic formula."
+  },
+  {
+    "entry_index": 472,
+    "equation": "2x^2 + 20x + 42 = 0",
+    "student_steps": [
+      "2x^2 + 20x + 42 = 0",
+      "x = (-(20) ± √((20)^2 - 4(2)(42)))/(2*2)",
+      "400 - 336 = 66"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "x = (-(20) ± √((20)^2 - 4(2)(42)))/(2*2)",
+    "operation": "Apply Quadratic Formula",
+    "error_type": "Quadratic formula misuse",
+    "error_detail": "The quadratic formula was applied correctly, but the problem could have been solved more simply by factoring the quadratic equation.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Other conceptual misunderstanding",
+    "confidence": 0.8,
+    "correct_steps": [
+      "(2*(x + 3)*(x + 7)) = 0",
+      "x = -7 OR x = -3"
+    ],
+    "feedback": "Step 1: It looks like you applied the quadratic formula correctly, but you might have missed a simpler way to solve the equation by factoring, which led to unnecessary complexity. \nStep 2: The key concept to understand here is that before jumping to the quadratic formula, it's essential to check if the quadratic equation can be factored easily, as factoring can provide a more straightforward solution.\nStep 3: To get the correct answer, you could have first tried to factor the quadratic equation 2x^2 + 20x + 42 = 0 into (2*(x + 3)*(x + 7)) = 0, which gives you the roots x = -7 and x = -3 directly, making the solution process simpler and more efficient."
+  },
+  {
+    "entry_index": 789,
+    "equation": "2x^2 + -28x + 90 = 0",
+    "student_steps": [
+      "2x^2 + -28x + 90 = 0",
+      "x = (-(-28) ± √((-28)^2 - 4(2)(90)))/(2*2)",
+      "√12 = 12"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "x = (-(-28) ± √((-28)^2 - 4(2)(90)))/(2*2)",
+    "operation": "Apply Quadratic Formula",
+    "error_type": "Quadratic formula misuse",
+    "error_detail": "The quadratic formula was applied correctly, but the question asks for factoring; the correct approach is factoring the quadratic equation.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Other conceptual misunderstanding",
+    "confidence": 0.8,
+    "correct_steps": [
+      "(2*(x - 9)*(x - 5)) = 0",
+      "x = 5 OR x = 9"
+    ],
+    "feedback": "Step 1: It seems like there was a mix-up in the approach, as the quadratic formula was applied instead of factoring the given quadratic equation 2x^2 + -28x + 90 = 0. \n   Step 2: To solve this, we need to understand that factoring is a method where we express the quadratic equation as a product of two binomials, which can be a more straightforward approach when possible.\n   Step 3: To get the correct answer, we should factor the given quadratic equation, which results in 2(x - 9)(x - 5) = 0, leading to the solutions x = 5 or x = 9."
+  },
+  {
+    "entry_index": 801,
+    "equation": "3x^2 + 6x + -144 = 0",
+    "student_steps": [
+      "3x^2 + 6x + -144 = 0",
+      "x = (-(6) ± √((6)^2 - 4(3)(-144)))/(2*3)",
+      "36 - -1728 = 1767"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "x = (-(6) ± √((6)^2 - 4(3)(-144)))/(2*3)",
+    "operation": "Apply Quadratic Formula",
+    "error_type": "Quadratic formula misuse",
+    "error_detail": "The quadratic formula was applied correctly, but the correct solution was provided through factoring instead; the formula result was not computed or compared.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Other conceptual misunderstanding",
+    "confidence": 0.8,
+    "correct_steps": [
+      "(3*(x - 6)*(x + 8)) = 0",
+      "x = -8 OR x = 6"
+    ],
+    "feedback": "Step 1: It seems like the quadratic formula was applied but the result wasn't computed or compared to the factored solution, leading to a missed opportunity to verify the answer. \nStep 2: The key concept to understand here is that the quadratic formula and factoring are both valid methods for solving quadratic equations, and it's essential to choose the most efficient method or verify results between methods.\nStep 3: To get the correct answer, you can either factor the quadratic equation as done in the correct solution, which gives x = -8 or x = 6, or you can compute the result of the quadratic formula and compare it to the factored solution to ensure accuracy."
+  },
+  {
+    "entry_index": 877,
+    "equation": "1x^2 + 1x + -20 = 0",
+    "student_steps": [
+      "1x^2 + 1x + -20 = 0",
+      "(x - -5)(x + 4) = 0"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "(x - -5)(x + 4) = 0",
+    "operation": "Factorization",
+    "error_type": "Sign error",
+    "error_detail": "Incorrect signs in factors; correct factors are (x - 4)(x + 5) instead of (x - -5)(x + 4).",
+    "misconception": "Computational Error",
+    "misconception_sub": "Sign error",
+    "confidence": 1,
+    "correct_steps": [
+      "((x - 4)*(x + 5)) = 0",
+      "x = -5 OR x = 4"
+    ],
+    "feedback": "Step 1: It looks like there was a sign error in the factorization process, which led to incorrect factors, let's take a closer look at what went wrong. \nStep 2: To factorize a quadratic equation like 1x^2 + 1x + -20 = 0, we need to find two numbers that multiply to -20 and add up to 1, and remember to keep the signs straight, the correct factors should have the correct signs to make the equation true.\nStep 3: Now, let's get the correct answer by using the correct factors (x - 4)(x + 5) = 0, which gives us the solutions x = -5 or x = 4, great job catching that mistake and let's keep practicing to get better at factorization."
+  },
+  {
+    "entry_index": 1114,
+    "equation": "2x^2 + -22x + 60 = 0",
+    "student_steps": [
+      "2x^2 + -22x + 60 = 0",
+      "x = (-(-22) ± √((-22)^2 - 4(2)(60)))/(2*2)",
+      "x = (-(-22) ± √4)/(2*2)"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "x = (-(-22) ± √((-22)^2 - 4(2)(60)))/(2*2)",
+    "operation": "Apply Quadratic Formula",
+    "error_type": "Quadratic formula misuse",
+    "error_detail": "The quadratic formula was applied correctly, but the question asks for factoring; the correct approach is factoring the quadratic equation.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Other conceptual misunderstanding",
+    "confidence": 0.8,
+    "correct_steps": [
+      "(2*(x - 6)*(x - 5)) = 0",
+      "x = 5 OR x = 6"
+    ],
+    "feedback": "Step 1: It seems like there was a mix-up in the approach, as the quadratic formula was applied instead of factoring the given quadratic equation 2x^2 + -22x + 60 = 0. \n   Step 2: To solve this, we need to understand that factoring is a method where we express the quadratic equation as a product of two binomials, which can be a more straightforward approach when possible.\n   Step 3: To get the correct answer, we should factor the quadratic equation into (2*(x - 6)*(x - 5)) = 0, which gives us the solutions x = 5 or x = 6, showing that factoring can be a simpler and more direct method for solving certain quadratic equations."
+  },
+  {
+    "entry_index": 1130,
+    "equation": "3x^2 + -45x + 150 = 0",
+    "student_steps": [
+      "3x^2 + -45x + 150 = 0",
+      "x = (-(-45) ± √((-45)^2 - 4(3)(150)))/(2*3)",
+      "2025 - 1800 = 226"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "x = (-(-45) ± √((-45)^2 - 4(3)(150)))/(2*3)",
+    "operation": "Apply Quadratic Formula",
+    "error_type": "Quadratic formula misuse",
+    "error_detail": "The quadratic formula was applied correctly, but the problem could have been solved more efficiently by factoring the quadratic equation.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Other conceptual misunderstanding",
+    "confidence": 0.8,
+    "correct_steps": [
+      "(3*(x - 10)*(x - 5)) = 0",
+      "x = 5 OR x = 10"
+    ],
+    "feedback": "Step 1: It looks like you applied the quadratic formula correctly, but didn't consider a more efficient way to solve the equation, which led to unnecessary complexity. \nStep 2: The key concept to understand here is that not all quadratic equations need the quadratic formula, and factoring can often be a simpler and more straightforward approach when possible. \nStep 3: To get the correct answer more efficiently, you could have factored the given quadratic equation 3x^2 + -45x + 150 = 0 into (3*(x - 10)*(x - 5)) = 0, which gives you the solutions x = 5 or x = 10 with much less work."
+  },
+  {
+    "entry_index": 1287,
+    "equation": "2x^2 + 10x + -48 = 0",
+    "student_steps": [
+      "2x^2 + 10x + -48 = 0",
+      "(x + 1)(x + 4) = 0"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "(x + 1)(x + 4) = 0",
+    "operation": "Factorization",
+    "error_type": "Incorrect coefficient",
+    "error_detail": "The factorization must account for the leading coefficient 2 and correct factors of -48 that sum to 10 when combined with the coefficient.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Misunderstanding of factorization",
+    "confidence": 0.9,
+    "correct_steps": [
+      "(2*(x - 3)*(x + 8)) = 0",
+      "x = -8 OR x = 3"
+    ],
+    "feedback": "Step 1: The mistake occurred because the factorization didn't account for the leading coefficient 2 and the correct factors of -48 that sum to 10, resulting in an incorrect factorization of (x + 1)(x + 4) = 0. \nStep 2: To factorize a quadratic equation like 2x^2 + 10x - 48 = 0, we need to find two numbers that multiply to -96 (2 * -48) and add up to 10, which will help us find the correct factors.\nStep 3: By finding the correct factors, we can rewrite the equation as 2(x - 3)(x + 8) = 0, which gives us the solutions x = -8 or x = 3, so make sure to double-check your factors and coefficients during factorization."
+  },
+  {
+    "entry_index": 1440,
+    "equation": "3x^2 + 15x + -108 = 0",
+    "student_steps": [
+      "3x^2 + 15x + -108 = 0",
+      "x = (-(15) ± √((15)^2 - 4(3)(-108)))/(2*3)",
+      "√12 = 12"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "x = (-(15) ± √((15)^2 - 4(3)(-108)))/(2*3)",
+    "operation": "Apply Quadratic Formula",
+    "error_type": "Quadratic formula misuse",
+    "error_detail": "The quadratic formula was applied correctly, but the problem could have been solved more efficiently by factoring the quadratic equation.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Other conceptual misunderstanding",
+    "confidence": 0.8,
+    "correct_steps": [
+      "(3*(x - 4)*(x + 9)) = 0",
+      "x = -9 OR x = 4"
+    ],
+    "feedback": "Step 1: It seems like you applied the quadratic formula correctly, but you didn't consider a more efficient way to solve the equation, which is factoring, and that's where the conceptual error lies. \nStep 2: The rule to understand here is that before applying the quadratic formula, it's always a good idea to check if the quadratic equation can be factored easily, as factoring can provide a quicker solution.\nStep 3: To get the correct answer, you should have first tried to factor the quadratic equation 3x^2 + 15x - 108 = 0, which factors into 3(x - 4)(x + 9) = 0, leading to the solutions x = -9 or x = 4."
+  },
+  {
+    "entry_index": 1459,
+    "equation": "3x^2 + -15x + -72 = 0",
+    "student_steps": [
+      "3x^2 + -15x + -72 = 0",
+      "x = (-(-15) ± √((-15)^2 - 4(3)(-72)))/(2*3)",
+      "225 - -864 = 1094"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "x = (-(-15) ± √((-15)^2 - 4(3)(-72)))/(2*3)",
+    "operation": "Apply Quadratic Formula",
+    "error_type": "Quadratic formula misuse",
+    "error_detail": "The quadratic formula was applied correctly, but the problem could have been solved more efficiently by factoring the equation as 3(x - 8)(x + 3) = 0, leading to the correct solutions x = -3 or x = 8.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Other conceptual misunderstanding",
+    "confidence": 0.8,
+    "correct_steps": [
+      "(3*(x - 8)*(x + 3)) = 0",
+      "x = -3 OR x = 8"
+    ],
+    "feedback": "Step 1: It looks like you applied the quadratic formula correctly, but didn't consider a more efficient way to solve the equation, which led to unnecessary complexity. \nStep 2: The key concept to understand here is that not all quadratic equations need the quadratic formula - some can be factored easily, which is a simpler and more straightforward method to find the solutions.\nStep 3: To get the correct answer, you could have factored the given equation 3x^2 + -15x + -72 = 0 into 3(x - 8)(x + 3) = 0, which gives you the solutions x = -3 or x = 8, making the process much simpler and more efficient."
+  },
+  {
+    "entry_index": 1696,
+    "equation": "3x^2 + 42x + 144 = 0",
+    "student_steps": [
+      "3x^2 + 42x + 144 = 0",
+      "(x - -6)(x + 8) = 0"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "(x - -6)(x + 8) = 0",
+    "operation": "Factorization",
+    "error_type": "Incorrect coefficient",
+    "error_detail": "The factorization is missing the leading coefficient 3; correct form is 3(x + 6)(x + 8) = 0.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Misunderstanding of factorization",
+    "confidence": 0.9,
+    "correct_steps": [
+      "(3*(x + 6)*(x + 8)) = 0",
+      "x = -8 OR x = -6"
+    ],
+    "feedback": "Step 1: It looks like there was a mistake in the factorization process, the equation 3x^2 + 42x + 144 = 0 was not factored correctly as (x - -6)(x + 8) = 0, which is missing the leading coefficient 3. \nStep 2: To factorize a quadratic equation of the form ax^2 + bx + c = 0, we need to find two numbers that multiply to ac and add up to b, and also consider the leading coefficient a, in this case, the correct factorization should include the leading coefficient 3.\nStep 3: To get the correct answer, we should factor the equation as 3(x + 6)(x + 8) = 0, which gives us the solutions x = -8 or x = -6, so make sure to include the leading coefficient when factorizing quadratic equations."
+  },
+  {
+    "entry_index": 1765,
+    "equation": "2x^2 + -16x + -18 = 0",
+    "student_steps": [
+      "2x^2 + -16x + -18 = 0",
+      "x = (-(-16) ± √((-16)^2 - 4(2)(-18)))/(2*2)",
+      "x = (-(-16) ± √400)/(2*2)"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "x = (-(-16) ± √((-16)^2 - 4(2)(-18)))/(2*2)",
+    "operation": "Apply Quadratic Formula",
+    "error_type": "Quadratic formula misuse",
+    "error_detail": "Student correctly applied the quadratic formula but the question asks for factoring; the correct approach is to factor the quadratic equation.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Other conceptual misunderstanding",
+    "confidence": 0.8,
+    "correct_steps": [
+      "(2*(x - 9)*(x + 1)) = 0",
+      "x = -1 OR x = 9"
+    ],
+    "feedback": "Step 1: It seems like there was a mix-up in the approach, as the quadratic formula was applied instead of factoring, leading to an incorrect method for solving the given equation. \nStep 2: The key concept to understand here is that when the question asks for factoring, we should try to express the quadratic equation as a product of two binomials, rather than using the quadratic formula.\nStep 3: To get the correct answer, we should factor the given quadratic equation 2x^2 + -16x + -18 = 0 into (2*(x - 9)*(x + 1)) = 0, which then gives us the solutions x = -1 or x = 9."
+  },
+  {
+    "entry_index": 1795,
+    "equation": "3x^2 + 15x + -72 = 0",
+    "student_steps": [
+      "3x^2 + 15x + -72 = 0",
+      "x = (-(15) ± √((15)^2 - 4(3)(-72)))/(2*3)",
+      "225 - -864 = 1090"
+    ],
+    "all_correct": false,
+    "error_at_step": 2,
+    "wrong_step": "x = (-(15) ± √((15)^2 - 4(3)(-72)))/(2*3)",
+    "operation": "Apply Quadratic Formula",
+    "error_type": "Quadratic formula misuse",
+    "error_detail": "The quadratic formula was correctly applied, but the problem could have been solved more simply by factoring the quadratic equation.",
+    "misconception": "Conceptual Error",
+    "misconception_sub": "Other conceptual misunderstanding",
+    "confidence": 0.8,
+    "correct_steps": [
+      "(3*(x - 3)*(x + 8)) = 0",
+      "x = -8 OR x = 3"
+    ],
+    "feedback": "Step 1: It looks like you applied the quadratic formula correctly, but you might have missed a simpler way to solve the equation by factoring, which led to not considering that step. \nStep 2: The key concept to understand here is that before jumping into the quadratic formula, it's always a good idea to check if the quadratic equation can be factored easily, as it often leads to a more straightforward solution.\nStep 3: To get the correct answer, you could have factored the given quadratic equation 3x^2 + 15x + -72 = 0 into (3*(x - 3)*(x + 8)) = 0, which then gives you the roots x = -8 and x = 3, providing a simpler and more efficient solution."
   }
 ]
