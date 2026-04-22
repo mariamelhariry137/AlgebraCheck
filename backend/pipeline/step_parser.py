@@ -13,19 +13,43 @@ SYSTEM_PROMPT = ("Identify the algebra operation between two steps. "
     "Choose from: Factorization,Expand,Apply Zero Product Rule,Solve Linear Equation,"
     "Apply Quadratic Formula,Complete the Square,Simplify,Collect Like Terms,"
     "Move Terms,Calculate Discriminant,Simplify Radical,Other. "
-    'Respond ONLY with JSON: {"op":"<name>","conf":<0-1>}')
+    'Respond ONLY with JSON: {"op":"<n>","conf":<0-1>}')
+
+
+def _is_multi_solution(step: str) -> bool:
+    """Detect any multi-solution format: OR, comma, or space-separated x-clauses."""
+    s = step.lower()
+    if re.search(r'\bor\b', s):
+        return True
+    if ',' in step and re.search(r'x\s*[=\-]', s):
+        return True
+    # Two or more x=... or x-...=0 fragments separated by whitespace
+    fragments = re.findall(r'x\s*[\-=][^\s,]+', s)
+    return len(fragments) >= 2
 
 
 def _regex_fallback(step_prev: str, step_curr: str) -> dict:
     cl = step_curr.lower()
-    if re.search(r'\bor\b', cl) and re.search(r'x\s*=', cl):
+
+    # Multi-solution output (OR / comma / space-separated) → zero product rule
+    if _is_multi_solution(step_curr):
         return {"operation": "Apply Zero Product Rule", "confidence": 0.9}
-    if re.match(r'^\s*x\s*=', cl) and 'or' not in cl:
+
+    # Single x= solution
+    if re.match(r'^\s*x\s*=', cl):
         return {"operation": "Solve Linear Equation", "confidence": 0.9}
+
+    # Factored form with dot notation: (x-2).(x-3)=0
+    if re.search(r'\(x[\+\-][^)]+\)\s*[.\*]\s*\(x[\+\-]', step_curr):
+        return {"operation": "Factorization", "confidence": 0.85}
+
+    # Factored form standard: (x±...)(x±...)
     if '(' in step_curr and re.search(r'\(x[\+\-]', step_curr):
         return {"operation": "Factorization", "confidence": 0.85}
+
     if 'sqrt' in cl or '√' in cl:
         return {"operation": "Apply Quadratic Formula", "confidence": 0.8}
+
     return {"operation": "Other", "confidence": 0.5}
 
 

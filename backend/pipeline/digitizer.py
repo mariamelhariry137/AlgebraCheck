@@ -19,6 +19,10 @@ def normalize_expression(expr: str) -> str:
     s = re.sub(r'(\w)([²³⁴⁵⁶⁷⁸⁹¹⁰]+)', replace_sups, s)
     # Unicode chars
     s = s.replace('−', '-').replace('–', '-').replace('·', '*')
+    # Dot multiplication: (x-2).(x-3) → (x-2)*(x-3)
+    s = re.sub(r'\)\s*\.\s*\(', ')*(', s)
+    s = re.sub(r'(\d)\s*\.\s*\(', r'\1*(', s)
+    s = re.sub(r'([a-zA-Z\)])\s*\.\s*([a-zA-Z\(])', r'\1*\2', s)
     # sqrt
     s = re.sub(r'√\s*\(', 'sqrt(', s)
     s = re.sub(r'√\s*(\w)', r'sqrt(\1)', s)
@@ -46,10 +50,30 @@ def digitize_equation(equation: str):
     return sympy_digitize(lhs.strip())
 
 
+def _first_clause(step: str) -> str:
+    """
+    Extract the first clause from any multi-solution format.
+    Handles: OR, comma, or space-separated x-clauses.
+    e.g. 'x=2 OR x=3'   -> 'x=2'
+         'x=2, x=3'     -> 'x=2'
+         'x=2 x=3'      -> 'x=2'
+         'x-2=0 x-3=0'  -> 'x-2=0'
+    """
+    if re.search(r'\bor\b', step, re.IGNORECASE):
+        return re.split(r'\s+or\s+', step, flags=re.IGNORECASE)[0].strip()
+    if ',' in step:
+        return step.split(',')[0].strip()
+    # Space-separated x-clauses: grab first x...= fragment
+    fragments = re.findall(r'x\s*[\-=][^\s,]+(?:\s*=\s*[^\s,]+)?', step)
+    if len(fragments) >= 2:
+        return fragments[0].strip()
+    return step
+
+
 def digitize_step(step: str):
-    # First OR clause only
-    step = re.split(r'\s+or\s+', step, flags=re.IGNORECASE)[0]
-    lhs  = step.split('=')[0] if '=' in step else step
+    """Parse the first clause of a step (handles all multi-solution formats and dot notation)."""
+    first = _first_clause(step)
+    lhs = first.split('=')[0] if '=' in first else first
     return sympy_digitize(lhs.strip())
 
 
