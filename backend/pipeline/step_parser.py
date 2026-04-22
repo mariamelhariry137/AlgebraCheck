@@ -17,21 +17,31 @@ SYSTEM_PROMPT = ("Identify the algebra operation between two steps. "
 
 
 def _is_multi_solution(step: str) -> bool:
-    """Detect any multi-solution format: OR, comma, or space-separated x-clauses."""
+    """Detect any multi-solution format: OR, comma, space-separated x-clauses, or ± steps."""
     s = step.lower()
     if re.search(r'\bor\b', s):
         return True
+    if '±' in step or re.search(r'\+\s*[-/]', step):
+        return True
     if ',' in step and re.search(r'x\s*[=\-]', s):
         return True
-    # Two or more x=... or x-...=0 fragments separated by whitespace
     fragments = re.findall(r'x\s*[\-=][^\s,]+', s)
     return len(fragments) >= 2
+
+
+def _is_plus_minus_step(step: str) -> bool:
+    """Detect ± steps: x = ±√(4), x = ±2, x = +-sqrt(4)"""
+    return bool(re.search(r'[±]|[+]\s*[-/]', step) and re.search(r'x\s*=', step, re.IGNORECASE))
 
 
 def _regex_fallback(step_prev: str, step_curr: str) -> dict:
     cl = step_curr.lower()
 
-    # Multi-solution output (OR / comma / space-separated) → zero product rule
+    # ± step (taking square root of both sides)
+    if _is_plus_minus_step(step_curr):
+        return {"operation": "Simplify Radical", "confidence": 0.9}
+
+    # Multi-solution output → zero product rule
     if _is_multi_solution(step_curr):
         return {"operation": "Apply Zero Product Rule", "confidence": 0.9}
 
@@ -39,7 +49,7 @@ def _regex_fallback(step_prev: str, step_curr: str) -> dict:
     if re.match(r'^\s*x\s*=', cl):
         return {"operation": "Solve Linear Equation", "confidence": 0.9}
 
-    # Factored form with dot notation: (x-2).(x-3)=0
+    # Factored form with dot notation: (x-2).(x-3)
     if re.search(r'\(x[\+\-][^)]+\)\s*[.\*]\s*\(x[\+\-]', step_curr):
         return {"operation": "Factorization", "confidence": 0.85}
 
@@ -48,7 +58,7 @@ def _regex_fallback(step_prev: str, step_curr: str) -> dict:
         return {"operation": "Factorization", "confidence": 0.85}
 
     if 'sqrt' in cl or '√' in cl:
-        return {"operation": "Apply Quadratic Formula", "confidence": 0.8}
+        return {"operation": "Simplify Radical", "confidence": 0.8}
 
     return {"operation": "Other", "confidence": 0.5}
 

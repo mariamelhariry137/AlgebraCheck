@@ -9,18 +9,10 @@ x = sp.symbols('x')
 # ── helpers ───────────────────────────────────────────────────────────────────
 
 def normalize_step(step: str) -> str:
-    """
-    Normalize common student notations before any parsing.
-    - Dot multiplication: (x-2).(x-3) → (x-2)*(x-3)
-    - Unicode minus/dot: − → -,  · → *
-    - Caret power: x^2 → x**2
-    """
+    """Normalize common student notations before parsing."""
     step = step.replace('−', '-').replace('·', '*').replace('^', '**')
-    # dot between closing and opening paren: ).(  →  )*(
     step = re.sub(r'\)\s*\.\s*\(', ')*(', step)
-    # dot between digit and paren: 2.(  →  2*(
     step = re.sub(r'(\d)\s*\.\s*\(', r'\1*(', step)
-    # dot between two terms like x.y → x*y  (but not decimal: 3.14 stays)
     step = re.sub(r'([a-zA-Z\)])\s*\.\s*([a-zA-Z\(])', r'\1*\2', step)
     return step
 
@@ -38,39 +30,75 @@ def expressions_equivalent(a, b) -> bool:
         return False
 
 
+# ── plus-minus (±) step detection ────────────────────────────────────────────
+
+def is_plus_minus_step(step: str) -> bool:
+    """Detect steps like: x = ±√(4), x = ±2, x = +-sqrt(4), x = +/-2"""
+    return bool(re.search(r'[±]|[+]\s*[-/]\s*[-]?', step) and re.search(r'x\s*=', step, re.IGNORECASE))
+
+
+def extract_plus_minus_solutions(step: str) -> set:
+    """
+    Extract solution set from ± steps.
+    Handles:
+      x = ±√(4)     → {2, -2}
+      x = ±√4       → {2, -2}
+      x = ±2        → {2, -2}
+      x = +-sqrt(4) → {2, -2}
+      x = +/-2      → {2, -2}
+    Returns empty set on failure.
+    """
+    # Normalize ± variants
+    s = step.replace('±', '±')  # keep ±
+    s = re.sub(r'\+\s*[-/]\s*-?', '±', s)   # +- or +/- → ±
+
+    # Match: x = ± sqrt(val) or x = ± √(val) or x = ± √val
+    m = re.search(
+        r'x\s*=\s*±\s*(?:√|sqrt)\s*\(?\s*([^)\s]+?)\s*\)?',
+        s, re.IGNORECASE
+    )
+    if m:
+        val_str = m.group(1).strip().replace('^', '**')
+        val = sympy_digitize(val_str)
+        if val is not None:
+            sq = sp.sqrt(val)
+            return {sq, -sq}
+
+    # Match: x = ± number (no sqrt)
+    m2 = re.search(r'x\s*=\s*±\s*([\d\.]+)', s, re.IGNORECASE)
+    if m2:
+        val_str = m2.group(1)
+        val = sp.sympify(val_str)
+        return {val, -val}
+
+    return set()
+
+
+# ── multi-solution step detection ─────────────────────────────────────────────
+
 def is_multi_solution_step(step: str) -> bool:
     """
     Detect any format where a student writes multiple solutions.
-    Covers:
-      x=2 OR x=3         (explicit OR)
-      x=2 or x=3         (lowercase or)
-      x=2, x=3           (comma)
-      x=2 x=3            (space-separated)
-      x-2=0 x-3=0        (space-separated equations)
+    Covers: OR, comma, space-separated x-clauses, ± steps.
     """
+    if is_plus_minus_step(step):
+        return True
     s = step.lower().strip()
     if re.search(r'\bor\b', s):
         return True
     if ',' in step and re.search(r'x\s*[=\-]', s):
         return True
-    # Two or more x=... or x-...=0 fragments
     fragments = re.findall(r'x\s*[\-=][^\s,]+', s)
     return len(fragments) >= 2
 
 
-# keep old name as alias so nothing else breaks
 def is_or_step(step: str) -> bool:
     return is_multi_solution_step(step)
 
 
 def solve_clause(clause: str):
-    """
-    Solve a single equation clause for x.
-    Handles: 'x=2', 'x-2=0', 'x-2' (treated as =0)
-    Returns a set of SymPy values, or empty set on failure.
-    """
+    """Solve a single equation clause for x. Returns a set of SymPy values."""
     clause = normalize_step(clause.strip())
-
     if '=' in clause:
         parts = clause.split('=', 1)
         lhs_s = parts[0].strip()
@@ -81,36 +109,21 @@ def solve_clause(clause: str):
 
     lhs = sympy_digitize(lhs_s)
     rhs = sympy_digitize(rhs_s) if rhs_s else sp.Integer(0)
-
     if lhs is None:
         return set()
-
     rhs = rhs if rhs is not None else sp.Integer(0)
-    expr = lhs - rhs
-
     try:
-        sols = sp.solve(expr, x)
-        return set(sols)
+        return set(sp.solve(lhs - rhs, x))
     except Exception:
         return set()
 
 
 def split_into_clauses(step: str) -> list:
-    """
-    Split a multi-solution step into individual clauses regardless of separator.
-    Handles: OR, comma, or plain whitespace between x-clauses.
-    e.g. 'x=2 OR x=3'   → ['x=2', 'x=3']
-         'x=2, x=3'     → ['x=2', 'x=3']
-         'x=2 x=3'      → ['x=2', 'x=3']
-         'x-2=0 x-3=0'  → ['x-2=0', 'x-3=0']
-    """
-    # Split on OR
+    """Split a multi-solution step into individual clauses."""
     if re.search(r'\bor\b', step, re.IGNORECASE):
         return [c.strip() for c in re.split(r'\s+or\s+', step, flags=re.IGNORECASE) if c.strip()]
-    # Split on comma
     if ',' in step:
         return [c.strip() for c in step.split(',') if c.strip()]
-    # Space-separated x clauses
     fragments = re.findall(r'x\s*[\-=][^\s]*(?:\s*=\s*[^\s]+)?', step)
     if len(fragments) >= 2:
         return [f.strip() for f in fragments]
@@ -120,18 +133,22 @@ def split_into_clauses(step: str) -> list:
 def extract_solutions(step: str):
     """
     Parse a multi-solution step into the full set of solutions.
+    Handles ± steps, OR, comma, and space-separated clauses.
     Returns None if nothing could be parsed.
     """
+    # Handle ± steps specially
+    if is_plus_minus_step(step):
+        sols = extract_plus_minus_solutions(step)
+        return sols if sols else None
+
     clauses = split_into_clauses(step)
     solutions = set()
     for clause in clauses:
-        sols = solve_clause(clause)
-        solutions |= sols
+        solutions |= solve_clause(clause)
     return solutions if solutions else None
 
 
 def solutions_from_expr(expr) -> set:
-    """Solve a SymPy expression for x and return the solution set."""
     try:
         return set(sp.solve(expr, x))
     except Exception:
@@ -143,7 +160,7 @@ def solutions_from_expr(expr) -> set:
 def validate_step_pair(step_prev: str, step_curr: str) -> dict:
     """
     Validate that step_curr is a correct transformation of step_prev.
-    Handles dot-multiplication, OR/comma/space-separated solutions.
+    Handles ± sqrt, dot-multiplication, OR/comma/space-separated solutions.
     """
     step_prev_norm = normalize_step(step_prev)
     step_curr_norm = normalize_step(step_curr)
@@ -186,7 +203,7 @@ def validate_step_pair(step_prev: str, step_curr: str) -> dict:
         if prev_sols and curr_sols and curr_sols.issubset(prev_sols):
             return {"valid": True, "reason": "subset_of_solutions"}
 
-    # ── Standard symbolic equivalence (with normalized notation) ─────────────
+    # ── Standard symbolic equivalence ────────────────────────────────────────
     sym_prev = digitize_step(step_prev_norm)
     sym_curr = digitize_step(step_curr_norm)
 

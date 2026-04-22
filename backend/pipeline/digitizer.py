@@ -54,10 +54,6 @@ def _first_clause(step: str) -> str:
     """
     Extract the first clause from any multi-solution format.
     Handles: OR, comma, or space-separated x-clauses.
-    e.g. 'x=2 OR x=3'   -> 'x=2'
-         'x=2, x=3'     -> 'x=2'
-         'x=2 x=3'      -> 'x=2'
-         'x-2=0 x-3=0'  -> 'x-2=0'
     """
     if re.search(r'\bor\b', step, re.IGNORECASE):
         return re.split(r'\s+or\s+', step, flags=re.IGNORECASE)[0].strip()
@@ -71,7 +67,7 @@ def _first_clause(step: str) -> str:
 
 
 def digitize_step(step: str):
-    """Parse the first clause of a step (handles all multi-solution formats and dot notation)."""
+    """Parse the first clause of a step (handles OR/comma/space multi-solution and dot notation)."""
     first = _first_clause(step)
     lhs = first.split('=')[0] if '=' in first else first
     return sympy_digitize(lhs.strip())
