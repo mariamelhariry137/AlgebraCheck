@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { api } from './api.js'
 import { usePipeline } from './hooks/usePipeline.js'
 import Header          from './components/Header.jsx'
@@ -8,6 +8,8 @@ import StepsPanel      from './components/StepsPanel.jsx'
 import ResultPanel     from './components/ResultPanel.jsx'
 import OnboardingDemo  from './components/OnBoardingdemo.jsx'
 
+const DEMO_KEY = 'algebracheck_demo_seen'
+
 const divider = { height: 1, background: 'var(--bdr)', margin: '1rem 0' }
 
 const sectionCard = {
@@ -16,11 +18,11 @@ const sectionCard = {
   boxShadow: 'var(--shadow-md)',
 }
 
-const DEMO_KEY = 'algebracheck_demo_seen'
-
 export default function App() {
   const [apiMode, setApiMode] = useState(null)
-  const [showDemo, setShowDemo] = useState(false)
+  const [showDemo, setShowDemo] = useState(
+    !sessionStorage.getItem(DEMO_KEY)  // ← initialise directly, no useEffect race
+  )
 
   const {
     problem, setProblem,
@@ -32,10 +34,6 @@ export default function App() {
 
   useEffect(() => {
     api.health().then(h => setApiMode(h.mode)).catch(() => {})
-    // Show demo only on first visit
-    if (!sessionStorage.getItem(DEMO_KEY)) {
-      setShowDemo(true)
-    }
   }, [])
 
   function handleDemoDone() {
