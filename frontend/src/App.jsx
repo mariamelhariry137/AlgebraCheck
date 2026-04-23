@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { api } from './api.js'
 import { usePipeline } from './hooks/usePipeline.js'
-import Header        from './components/Header.jsx'
-import ProblemPanel  from './components/ProblemPanel.jsx'
-import SymbolToolbar from './components/SymbolToolbar.jsx'
-import StepsPanel    from './components/StepsPanel.jsx'
-import ResultPanel   from './components/ResultPanel.jsx'
+import Header          from './components/Header.jsx'
+import ProblemPanel    from './components/ProblemPanel.jsx'
+import SymbolToolbar   from './components/SymbolToolbar.jsx'
+import StepsPanel      from './components/StepsPanel.jsx'
+import ResultPanel     from './components/ResultPanel.jsx'
+import OnboardingDemo  from './components/OnboardingDemo.jsx'
 
 const divider = { height: 1, background: 'var(--bdr)', margin: '1rem 0' }
 
@@ -15,8 +16,11 @@ const sectionCard = {
   boxShadow: 'var(--shadow-md)',
 }
 
+const DEMO_KEY = 'algebracheck_demo_seen'
+
 export default function App() {
   const [apiMode, setApiMode] = useState(null)
+  const [showDemo, setShowDemo] = useState(false)
 
   const {
     problem, setProblem,
@@ -28,10 +32,21 @@ export default function App() {
 
   useEffect(() => {
     api.health().then(h => setApiMode(h.mode)).catch(() => {})
+    // Show demo only on first visit
+    if (!sessionStorage.getItem(DEMO_KEY)) {
+      setShowDemo(true)
+    }
   }, [])
+
+  function handleDemoDone() {
+    sessionStorage.setItem(DEMO_KEY, '1')
+    setShowDemo(false)
+  }
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {showDemo && <OnboardingDemo onDone={handleDemoDone} />}
+
       <Header apiMode={apiMode} />
 
       <main style={{
@@ -92,6 +107,19 @@ export default function App() {
       }}>
         AlgebraCheck &nbsp;·&nbsp; SymPy Symbolic Engine &nbsp;·&nbsp;
         <span style={{ color: 'var(--accent)' }}>AI Error Detection &amp; Misconception Classification</span>
+        &nbsp;·&nbsp;
+        <button
+          onClick={() => setShowDemo(true)}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: '.63rem', color: 'var(--muted2)',
+            padding: 0, textDecoration: 'underline',
+            letterSpacing: '0.5px',
+          }}
+        >
+          replay demo
+        </button>
       </footer>
     </div>
   )

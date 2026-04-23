@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
 const ROW1 = [
-  { label: 'x²', value: 'x²' },
-  { label: 'x³', value: 'x³' },
-  { label: '√()', value: '√()' },
+  { label: 'x²', value: 'x^2' },
+  { label: 'x',  value: 'x' },
+  { label: '√()', value: 'sqrt(' },
   { label: '()', value: '()' },
   { label: 'OR', value: ' OR ' },
 ]
@@ -11,8 +11,9 @@ const ROW2 = [
   { label: '=0', value: ' = 0' },
   { label: '±',  value: '±' },
   { label: '+',  value: '+' },
-  { label: '−',  value: ' − ' },
-  { label: '·',  value: '·' },
+  { label: '−',  value: '-' },
+  { label: '·',  value: '*' },
+  { label: '÷',  value: '/' },
 ]
 
 function SymBtn({ label, value, onInsert }) {
@@ -88,7 +89,8 @@ export default function SymbolToolbar({ onInsert, activeTarget }) {
         <p style={{ fontSize: '.69rem', color: 'var(--muted2)', lineHeight: 1.6 }}>
           Type <code style={code}>x^2</code> or click <code style={code}>x²</code>
           &nbsp;·&nbsp; <code style={code}>sqrt(</code> or click <code style={code}>√()</code>
-          &nbsp;·&nbsp; <code style={code}>(x-2)*(x-3)</code> → (x−2)·(x−3)
+          &nbsp;·&nbsp; <code style={code}>(x-2)*(x-3)</code> → factors
+          &nbsp;·&nbsp; <code style={code}>3/2</code> or click <code style={code}>÷</code>
         </p>
       </div>
     </section>
