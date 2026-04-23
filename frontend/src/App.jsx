@@ -6,7 +6,7 @@ import ProblemPanel    from './components/ProblemPanel.jsx'
 import SymbolToolbar   from './components/SymbolToolbar.jsx'
 import StepsPanel      from './components/StepsPanel.jsx'
 import ResultPanel     from './components/ResultPanel.jsx'
-import OnboardingDemo  from './components/OnboardingDemo.jsx'
+import OnboardingDemo  from './components/OnBoardingdemo.jsx'
 
 const divider = { height: 1, background: 'var(--bdr)', margin: '1rem 0' }
 
