@@ -7,7 +7,6 @@ import SymbolToolbar   from './components/SymbolToolbar.jsx'
 import StepsPanel      from './components/StepsPanel.jsx'
 import ResultPanel     from './components/ResultPanel.jsx'
 import OnboardingDemo  from './components/OnBoardingdemo.jsx'
-console.log('OnboardingDemo imported:', OnboardingDemo)
 
 const divider = { height: 1, background: 'var(--bdr)', margin: '1rem 0' }
 
@@ -21,7 +20,7 @@ const DEMO_KEY = 'algebracheck_demo_seen'
 
 export default function App() {
   const [apiMode, setApiMode] = useState(null)
-  const [showDemo, setShowDemo] = useState(true)
+  const [showDemo, setShowDemo] = useState(false)
 
   const {
     problem, setProblem,
@@ -46,11 +45,7 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {showDemo && (
-  <div style={{ position: 'fixed', inset: 0, zIndex: 99999, background: 'red' }}>
-    <OnboardingDemo onDone={() => setShowDemo(false)} />
-  </div>
-)}
+      {showDemo && <OnboardingDemo onDone={handleDemoDone} />}
 
       <Header apiMode={apiMode} />
 
