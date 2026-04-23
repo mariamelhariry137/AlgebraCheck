@@ -20,7 +20,7 @@ const DEMO_KEY = 'algebracheck_demo_seen'
 
 export default function App() {
   const [apiMode, setApiMode] = useState(null)
-  const [showDemo, setShowDemo] = useState(false)
+  const [showDemo, setShowDemo] = useState(true)
 
   const {
     problem, setProblem,
