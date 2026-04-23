@@ -80,96 +80,112 @@ def health():
         "mode": "full (Groq/Qwen3)" if groq_configured else "fallback (rule-based)"
     }
 
-
 @app.get("/presets", response_model=List[PresetItem])
 def get_presets():
     return [
         # ── Easy ──────────────────────────────────────────────────────────────
+
+        # Factorization 1
         {
             "difficulty": "Easy",
-            "label":   "x² − 5x + 6 = 0",
+            "label":   "x² − 5x + 6 = 0  (Factorization)",
             "problem": "x^2 - 5x + 6",
             "correct": ["x^2 - 5x + 6 = 0", "(x-2)*(x-3) = 0", "x-2=0 OR x-3=0", "x=2 OR x=3"],
             "error":   ["x^2 - 5x + 6 = 0", "(x-2)*(x+3) = 0", "x-2=0 OR x+3=0", "x=2 OR x=-3"],
         },
+        # Factorization 2
         {
             "difficulty": "Easy",
-            "label":   "x² − 9 = 0",
-            "problem": "x^2 - 9",
-            "correct": ["x^2 - 9 = 0", "(x-3)*(x+3) = 0", "x=3 OR x=-3"],
-            "error":   ["x^2 - 9 = 0", "(x-3)*(x-3) = 0", "x=3"],
-        },
-        {
-            "difficulty": "Easy",
-            "label":   "x² − 4 = 0",
-            "problem": "x^2 - 4",
-            "correct": ["x^2 - 4 = 0", "(x-2)*(x+2) = 0", "x=2 OR x=-2"],
-            "error":   ["x^2 - 4 = 0", "(x-2)*(x-2) = 0", "x=2"],
-        },
-        {
-            "difficulty": "Easy",
-            "label":   "x² + 5x + 6 = 0",
+            "label":   "x² + 5x + 6 = 0  (Factorization)",
             "problem": "x^2 + 5x + 6",
-            "correct": ["x^2 + 5x + 6 = 0", "(x+2)*(x+3) = 0", "x=-2 OR x=-3"],
+            "correct": ["x^2 + 5x + 6 = 0", "(x+2)*(x+3) = 0", "x+2=0 OR x+3=0", "x=-2 OR x=-3"],
             "error":   ["x^2 + 5x + 6 = 0", "(x+2)*(x+3) = 0", "x+2=0 OR x+3=0", "x=2 OR x=3"],
         },
+        # Completing the Square
+        {
+            "difficulty": "Easy",
+            "label":   "x² + 4x = 0  (Completing the Square)",
+            "problem": "x^2 + 4x",
+            "correct": ["x^2 + 4x = 0", "x^2 + 4x + 4 = 4", "(x+2)^2 = 4", "x+2 = 2 OR x+2 = -2", "x=0 OR x=-4"],
+            "error":   ["x^2 + 4x = 0", "x^2 + 4x + 4 = 4", "(x+2)^2 = 4", "x+2 = 2 OR x+2 = -2", "x=2 OR x=-2"],
+        },
+        # Quadratic Formula
+        {
+            "difficulty": "Easy",
+            "label":   "x² − 3x + 2 = 0  (Quadratic Formula)",
+            "problem": "x^2 - 3x + 2",
+            "correct": ["x^2 - 3x + 2 = 0", "x = (3 ± sqrt(9 - 8)) / 2", "x = (3 ± sqrt(1)) / 2", "x = (3 ± 1) / 2", "x=2 OR x=1"],
+            "error":   ["x^2 - 3x + 2 = 0", "x = (3 ± sqrt(9 - 8)) / 2", "x = (3 ± sqrt(1)) / 2", "x = (3 ± 1) / 2", "x=4 OR x=2"],
+        },
+
         # ── Medium ────────────────────────────────────────────────────────────
+
+        # Factorization 1
         {
             "difficulty": "Medium",
-            "label":   "x² + 2x − 8 = 0",
+            "label":   "x² + 2x − 8 = 0  (Factorization)",
             "problem": "x^2 + 2x - 8",
-            "correct": ["x^2 + 2x - 8 = 0", "(x+4)*(x-2) = 0", "x=-4 OR x=2"],
-            "error":   ["x^2 + 2x - 8 = 0", "(x+4)*(x+2) = 0", "x=-4 OR x=-2"],
+            "correct": ["x^2 + 2x - 8 = 0", "(x+4)*(x-2) = 0", "x+4=0 OR x-2=0", "x=-4 OR x=2"],
+            "error":   ["x^2 + 2x - 8 = 0", "(x+4)*(x+2) = 0", "x+4=0 OR x+2=0", "x=-4 OR x=-2"],
         },
+        # Factorization 2
         {
             "difficulty": "Medium",
-            "label":   "x² − x − 12 = 0",
+            "label":   "x² − x − 12 = 0  (Factorization)",
             "problem": "x^2 - x - 12",
-            "correct": ["x^2 - x - 12 = 0", "(x-4)*(x+3) = 0", "x=4 OR x=-3"],
-            "error":   ["x^2 - x - 12 = 0", "(x+4)*(x-3) = 0", "x=-4 OR x=3"],
+            "correct": ["x^2 - x - 12 = 0", "(x-4)*(x+3) = 0", "x-4=0 OR x+3=0", "x=4 OR x=-3"],
+            "error":   ["x^2 - x - 12 = 0", "(x+4)*(x-3) = 0", "x+4=0 OR x-3=0", "x=-4 OR x=3"],
         },
+        # Completing the Square
         {
             "difficulty": "Medium",
-            "label":   "x² + 3x − 10 = 0",
-            "problem": "x^2 + 3x - 10",
-            "correct": ["x^2 + 3x - 10 = 0", "(x+5)*(x-2) = 0", "x=-5 OR x=2"],
-            "error":   ["x^2 + 3x - 10 = 0", "(x+5)*(x-2) = 0", "x+5=0 OR x-2=0", "x=5 OR x=-2"],
+            "label":   "x² + 6x + 5 = 0  (Completing the Square)",
+            "problem": "x^2 + 6x + 5",
+            "correct": ["x^2 + 6x + 5 = 0", "x^2 + 6x = -5", "x^2 + 6x + 9 = 4", "(x+3)^2 = 4", "x+3 = 2 OR x+3 = -2", "x=-1 OR x=-5"],
+            "error":   ["x^2 + 6x + 5 = 0", "x^2 + 6x = -5", "x^2 + 6x + 9 = 4", "(x+3)^2 = 4", "x+3 = 2 OR x+3 = -2", "x=1 OR x=5"],
         },
+        # Quadratic Formula
         {
             "difficulty": "Medium",
-            "label":   "2x² − 8 = 0",
-            "problem": "2*x^2 - 8",
-            "correct": ["2x^2 - 8 = 0", "x^2 - 4 = 0", "(x-2)*(x+2) = 0", "x=2 OR x=-2"],
-            "error":   ["2x^2 - 8 = 0", "x^2 - 4 = 0", "(x-2)*(x-2) = 0", "x=2"],
+            "label":   "x² − 5x + 4 = 0  (Quadratic Formula)",
+            "problem": "x^2 - 5x + 4",
+            "correct": ["x^2 - 5x + 4 = 0", "x = (5 ± sqrt(25 - 16)) / 2", "x = (5 ± sqrt(9)) / 2", "x = (5 ± 3) / 2", "x=4 OR x=1"],
+            "error":   ["x^2 - 5x + 4 = 0", "x = (5 ± sqrt(25 - 16)) / 2", "x = (5 ± sqrt(9)) / 2", "x = (5 ± 3) / 2", "x=8 OR x=2"],
         },
+
         # ── Hard ──────────────────────────────────────────────────────────────
+
+        # Factorization 1
         {
             "difficulty": "Hard",
-            "label":   "x² − 4x + 4 = 0",
-            "problem": "x^2 - 4x + 4",
-            "correct": ["x^2 - 4x + 4 = 0", "(x-2)^2 = 0", "x=2"],
-            "error":   ["x^2 - 4x + 4 = 0", "(x-2)*(x+2) = 0", "x=2 OR x=-2"],
-        },
-        {
-            "difficulty": "Hard",
-            "label":   "2x² − 5x + 3 = 0",
+            "label":   "2x² − 5x + 3 = 0  (Factorization)",
             "problem": "2*x^2 - 5*x + 3",
-            "correct": ["2x^2 - 5x + 3 = 0", "(2x-3)*(x-1) = 0", "x=3/2 OR x=1"],
+            "correct": ["2x^2 - 5x + 3 = 0", "(2x-3)*(x-1) = 0", "2x-3=0 OR x-1=0", "x=3/2 OR x=1"],
             "error":   ["2x^2 - 5x + 3 = 0", "(2x-3)*(x-1) = 0", "2x-3=0 OR x-1=0", "x=3 OR x=1"],
         },
+        # Factorization 2
         {
             "difficulty": "Hard",
-            "label":   "x² + 6x + 9 = 0",
-            "problem": "x^2 + 6x + 9",
-            "correct": ["x^2 + 6x + 9 = 0", "(x+3)^2 = 0", "x=-3"],
-            "error":   ["x^2 + 6x + 9 = 0", "(x+3)*(x-3) = 0", "x=-3 OR x=3"],
-        },
-        {
-            "difficulty": "Hard",
-            "label":   "3x² − 7x + 2 = 0",
+            "label":   "3x² − 7x + 2 = 0  (Factorization)",
             "problem": "3*x^2 - 7*x + 2",
-            "correct": ["3x^2 - 7x + 2 = 0", "(3x-1)*(x-2) = 0", "x=1/3 OR x=2"],
+            "correct": ["3x^2 - 7x + 2 = 0", "(3x-1)*(x-2) = 0", "3x-1=0 OR x-2=0", "x=1/3 OR x=2"],
             "error":   ["3x^2 - 7x + 2 = 0", "(3x-1)*(x-2) = 0", "3x-1=0 OR x-2=0", "x=1 OR x=2"],
+        },
+        # Completing the Square
+        {
+            "difficulty": "Hard",
+            "label":   "x² − 4x + 1 = 0  (Completing the Square)",
+            "problem": "x^2 - 4*x + 1",
+            "correct": ["x^2 - 4x + 1 = 0", "x^2 - 4x = -1", "x^2 - 4x + 4 = 3", "(x-2)^2 = 3", "x-2 = sqrt(3) OR x-2 = -sqrt(3)", "x = 2+sqrt(3) OR x = 2-sqrt(3)"],
+            "error":   ["x^2 - 4x + 1 = 0", "x^2 - 4x = -1", "x^2 - 4x + 4 = 3", "(x-2)^2 = 3", "x-2 = sqrt(3) OR x-2 = -sqrt(3)", "x = sqrt(3) OR x = -sqrt(3)"],
+        },
+        # Quadratic Formula
+        {
+            "difficulty": "Hard",
+            "label":   "2x² + 3x − 2 = 0  (Quadratic Formula)",
+            "problem": "2*x^2 + 3*x - 2",
+            "correct": ["2x^2 + 3x - 2 = 0", "x = (-3 ± sqrt(9 + 16)) / 4", "x = (-3 ± sqrt(25)) / 4", "x = (-3 ± 5) / 4", "x=1/2 OR x=-2"],
+            "error":   ["2x^2 + 3x - 2 = 0", "x = (-3 ± sqrt(9 - 16)) / 4", "x = (-3 ± sqrt(-7)) / 4", "x = (-3 ± sqrt(25)) / 4", "x=1/2 OR x=-2"],
         },
     ]
 
