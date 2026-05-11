@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
 const ROW1 = [
-  { label: 'x²', value: 'x^2' },
-  { label: 'x',  value: 'x' },
-  { label: '√()', value: 'sqrt(' },
-  { label: '()', value: '()' },
-  { label: 'OR', value: ' OR ' },
+  { label: 'x²',    value: 'x^2' },
+  { label: 'x',     value: 'x' },
+  { label: '√()',   value: 'sqrt(' },
+  { label: '()',    value: '()' },
+  { label: '()²',   value: '()^2' },
+  { label: 'OR',    value: ' OR ' },
 ]
 const ROW2 = [
   { label: '=0', value: ' = 0' },
@@ -16,7 +17,7 @@ const ROW2 = [
   { label: '÷',  value: '/' },
 ]
 
-function SymBtn({ label, value, onInsert }) {
+function SymBtn({ label, value, onInsert, isMath }) {
   const [hov, setHov] = useState(false)
   return (
     <button
@@ -28,15 +29,24 @@ function SymBtn({ label, value, onInsert }) {
         background: hov ? 'var(--accent)' : 'var(--surf)',
         border: `1px solid ${hov ? 'var(--accent)' : 'var(--bdr)'}`,
         color: hov ? '#fff' : 'var(--text2)',
-        fontFamily: "'JetBrains Mono', monospace",
-        fontSize: '.82rem', fontWeight: 500,
+        fontFamily: isMath ? 'Georgia, serif' : "'JetBrains Mono', monospace",
+        fontSize: isMath ? '.9rem' : '.82rem',
+        fontWeight: 500,
         padding: '.35rem .5rem', borderRadius: 7,
         cursor: 'pointer', transition: 'all .12s',
         transform: hov ? 'translateY(-1px)' : 'none',
         boxShadow: hov ? '0 2px 8px rgba(37,99,235,.25)' : 'var(--shadow)',
         whiteSpace: 'nowrap',
       }}
-    >{label}</button>
+    >
+      {/* Render ()² with proper superscript */}
+      {label === '()²'
+        ? <span style={{ fontFamily: 'Georgia, serif' }}>
+            ()<sup style={{ fontSize: '.6rem' }}>2</sup>
+          </span>
+        : label
+      }
+    </button>
   )
 }
 
@@ -89,8 +99,8 @@ export default function SymbolToolbar({ onInsert, activeTarget }) {
         <p style={{ fontSize: '.69rem', color: 'var(--muted2)', lineHeight: 1.6 }}>
           Type <code style={code}>x^2</code> or click <code style={code}>x²</code>
           &nbsp;·&nbsp; <code style={code}>sqrt(</code> or click <code style={code}>√()</code>
+          &nbsp;·&nbsp; <code style={code}>(x+2)^2</code> or click <code style={code}>()²</code>
           &nbsp;·&nbsp; <code style={code}>(x-2)*(x-3)</code> → factors
-          &nbsp;·&nbsp; <code style={code}>3/2</code> or click <code style={code}>÷</code>
         </p>
       </div>
     </section>
