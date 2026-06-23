@@ -1,10 +1,25 @@
-import React, { useRef, useEffect, useCallback, useState } from 'react'
+import React, { useRef, useEffect, useCallback, useState, forwardRef, useImperativeHandle } from 'react'
 import { prettifyHTML } from '../utils/math.js'
 
-export default function MathInput({ index, value, placeholder, onChange, onFocus, onRemove }) {
+const MathInput = forwardRef(function MathInput(
+  { index, value, placeholder, onChange, onFocus, onRemove, onEnter, registerInput },
+  ref
+) {
   const inputRef   = useRef(null)
   const overlayRef = useRef(null)
   const [focused, setFocused] = useState(false)
+
+  // Lets the parent (StepsPanel) imperatively focus this exact input,
+  // used after Enter/+Step to jump straight into the new line
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      if (inputRef.current) {
+        inputRef.current.focus()
+        const len = inputRef.current.value.length
+        inputRef.current.setSelectionRange(len, len)
+      }
+    }
+  }))
 
   const syncOverlay = useCallback(() => {
     const inp = inputRef.current
@@ -21,6 +36,21 @@ export default function MathInput({ index, value, placeholder, onChange, onFocus
   const handleScroll = () => {
     if (overlayRef.current && inputRef.current)
       overlayRef.current.style.transform = `translateX(-${inputRef.current.scrollLeft}px)`
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      onEnter && onEnter(index)
+    }
+  }
+
+  const handleFocus = () => {
+    setFocused(true)
+    onFocus(index)
+    // Register this exact DOM node as "the" active input so the symbol
+    // toolbar can insert at its cursor position without needing a click
+    registerInput && registerInput(inputRef.current)
   }
 
   return (
@@ -65,9 +95,10 @@ export default function MathInput({ index, value, placeholder, onChange, onFocus
           value={value}
           placeholder={placeholder}
           onChange={e => onChange(index, e.target.value)}
-          onFocus={() => { setFocused(true); onFocus(index) }}
+          onFocus={handleFocus}
           onBlur={() => setFocused(false)}
           onScroll={handleScroll}
+          onKeyDown={handleKeyDown}
           spellCheck={false}
           autoComplete="off"
           style={{
@@ -80,12 +111,12 @@ export default function MathInput({ index, value, placeholder, onChange, onFocus
             overflowX: 'auto', caretColor: 'var(--accent)', zIndex: 1,
           }}
         />
-
       </div>
 
       {/* Remove */}
       <button
         onClick={() => onRemove(index)}
+        onMouseDown={e => e.preventDefault()}
         title="Remove step"
         style={{
           background: 'transparent', border: 'none',
@@ -99,4 +130,6 @@ export default function MathInput({ index, value, placeholder, onChange, onFocus
       >✕</button>
     </div>
   )
-}
+})
+
+export default MathInput

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import MathInput from './MathInput.jsx'
 
 const PLACEHOLDERS = [
@@ -11,8 +11,11 @@ const PLACEHOLDERS = [
 function SecBtn({ children, onClick }) {
   const [hov, setHov] = useState(false)
   return (
-    <button onClick={onClick}
-      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+    <button
+      onClick={onClick}
+      onMouseDown={e => e.preventDefault()}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
       style={{
         background: hov ? 'var(--surf2)' : 'var(--surf)',
         border: `1px solid ${hov ? 'var(--bdr2)' : 'var(--bdr)'}`,
@@ -34,9 +37,28 @@ const sectionLabel = {
 
 export default function StepsPanel({
   steps, updateStep, addStep, removeStep,
-  setActiveStep, activeStep, clear, onAnalyze, loading
+  setActiveStep, activeStep, clear, onAnalyze, loading, registerInput
 }) {
   const [btnHov, setBtnHov] = useState(false)
+  const inputRefs = useRef([])
+
+  // Enter inside a step → add a new step and jump straight into it
+  const handleEnter = useCallback((index) => {
+    const newIndex = index + 1
+    addStep()
+    setTimeout(() => {
+      inputRefs.current[newIndex]?.focus()
+    }, 30)
+  }, [addStep])
+
+  // "+ Step" button → same behaviour as Enter
+  const handleAddStep = useCallback(() => {
+    const newIndex = steps.length
+    addStep()
+    setTimeout(() => {
+      inputRefs.current[newIndex]?.focus()
+    }, 30)
+  }, [addStep, steps.length])
 
   return (
     <section>
@@ -47,26 +69,38 @@ export default function StepsPanel({
 
       <p style={{ fontSize: '.74rem', color: 'var(--muted)', marginBottom: '.7rem' }}>
         Step 1 = original equation. Each following step = one transformation.
+        Press <strong>Enter</strong> to add the next step.
       </p>
 
       <div style={{ marginBottom: '.75rem' }}>
         {steps.map((val, i) => (
           <MathInput
-            key={i} index={i} value={val}
+            key={i}
+            ref={el => inputRefs.current[i] = el}
+            index={i}
+            value={val}
             placeholder={PLACEHOLDERS[i] || `Step ${i + 1}`}
-            onChange={updateStep} onFocus={setActiveStep} onRemove={removeStep}
+            onChange={updateStep}
+            onFocus={setActiveStep}
+            onRemove={removeStep}
+            onEnter={handleEnter}
+            registerInput={registerInput}
           />
         ))}
       </div>
 
       <div style={{ display: 'flex', gap: '.5rem', marginBottom: '.4rem' }}>
-        <SecBtn onClick={addStep}>＋ Step</SecBtn>
+        <SecBtn onClick={handleAddStep}>＋ Step</SecBtn>
         <SecBtn onClick={clear}>Clear</SecBtn>
         <button
-          onClick={onAnalyze} disabled={loading}
-          onMouseEnter={() => setBtnHov(true)} onMouseLeave={() => setBtnHov(false)}
+          onClick={onAnalyze}
+          onMouseDown={e => e.preventDefault()}
+          disabled={loading}
+          onMouseEnter={() => setBtnHov(true)}
+          onMouseLeave={() => setBtnHov(false)}
           style={{
-            flex: 1, background: btnHov && !loading ? '#1d4ed8' : 'var(--accent)',
+            flex: 1,
+            background: btnHov && !loading ? '#1d4ed8' : 'var(--accent)',
             border: 'none', color: '#fff',
             fontSize: '.88rem', fontWeight: 600,
             padding: '.45rem 1.2rem', borderRadius: 8,

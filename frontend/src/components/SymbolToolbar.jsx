@@ -17,10 +17,15 @@ const ROW2 = [
   { label: '÷',  value: '/' },
 ]
 
-function SymBtn({ label, value, onInsert, isMath }) {
+function SymBtn({ label, value, onInsert }) {
   const [hov, setHov] = useState(false)
   return (
     <button
+      // onMouseDown + preventDefault stops the button from ever taking focus.
+      // Without this, clicking a symbol moves focus away from the step input,
+      // so the next keystroke goes nowhere until the user clicks back in.
+      // onClick still fires normally and inserts the symbol.
+      onMouseDown={e => e.preventDefault()}
       onClick={() => onInsert(value)}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
@@ -29,8 +34,8 @@ function SymBtn({ label, value, onInsert, isMath }) {
         background: hov ? 'var(--accent)' : 'var(--surf)',
         border: `1px solid ${hov ? 'var(--accent)' : 'var(--bdr)'}`,
         color: hov ? '#fff' : 'var(--text2)',
-        fontFamily: isMath ? 'Georgia, serif' : "'JetBrains Mono', monospace",
-        fontSize: isMath ? '.9rem' : '.82rem',
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: '.82rem',
         fontWeight: 500,
         padding: '.35rem .5rem', borderRadius: 7,
         cursor: 'pointer', transition: 'all .12s',
@@ -39,7 +44,6 @@ function SymBtn({ label, value, onInsert, isMath }) {
         whiteSpace: 'nowrap',
       }}
     >
-      {/* Render ()² with proper superscript */}
       {label === '()²'
         ? <span style={{ fontFamily: 'Georgia, serif' }}>
             ()<sup style={{ fontSize: '.6rem' }}>2</sup>

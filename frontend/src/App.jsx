@@ -28,6 +28,7 @@ export default function App() {
     problem, setProblem,
     steps, updateStep, addStep, removeStep, insertSymbol,
     activeStep, activeTarget, setActiveTarget,
+    registerInput,
     result, loading, error,
     loadPreset, clear, analyze,
   } = usePipeline()
@@ -60,6 +61,7 @@ export default function App() {
             setProblem={setProblem}
             loadPreset={loadPreset}
             onFocus={setActiveTarget}
+            registerInput={registerInput}
           />
           <div style={divider} />
           <SymbolToolbar
@@ -77,6 +79,7 @@ export default function App() {
             clear={clear}
             onAnalyze={analyze}
             loading={loading}
+            registerInput={registerInput}
           />
         </div>
 

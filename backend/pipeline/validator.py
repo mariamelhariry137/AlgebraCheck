@@ -41,7 +41,6 @@ def _solve_clause(clause: str) -> set:
 
     try:
         sols = sp.solve(expr, x)
-        # Convert to numeric floats for reliable comparison across simplifications
         result = set()
         for s in sols:
             try:
@@ -55,14 +54,7 @@ def _solve_clause(clause: str) -> set:
 
 def solve_step(step: str) -> set:
     """
-    Solve any step for x, handling all student notation formats:
-      - Regular equation:         x^2 - 3x + 2 = 0
-      - Quadratic formula (±):    x = (3 ± √(9-8)) / 2
-      - Plus-minus variants:      x = +-sqrt(4), x = +/-2
-      - OR-separated:             x=2 OR x=1, x+2=2 OR x+2=-2
-      - Comma-separated:          x=2, x=1
-      - Space-separated:          x=2 x=1, x-2=0 x-3=0
-      - Completing the square:    (x+2)^2 = 4, x+2 = 2 OR x+2 = -2
+    Solve any step for x, handling all student notation formats.
     Returns a set of float solutions (empty set if unparseable).
     """
     step = step.strip()
@@ -89,7 +81,7 @@ def solve_step(step: str) -> set:
         if sols:
             return sols
 
-    # ── Space-separated x-clauses (e.g. x=2 x=1 or x-2=0 x-3=0) ────────────
+    # ── Space-separated x-clauses ────────────────────────────────────────────
     fragments = re.findall(r'x\s*[\-=+][^\s,]+(?:\s*=\s*[^\s,]+)?', step_norm, re.IGNORECASE)
     if len(fragments) >= 2:
         sols = set()
@@ -100,7 +92,7 @@ def solve_step(step: str) -> set:
 
     # ── ± step: expand into two equations and solve both ─────────────────────
     if '±' in step_norm:
-        plus_ver = step_norm.replace('±', '+')
+        plus_ver  = step_norm.replace('±', '+')
         minus_ver = step_norm.replace('±', '-')
         sols = set()
         for ver in [plus_ver, minus_ver]:
@@ -111,7 +103,69 @@ def solve_step(step: str) -> set:
     return _solve_clause(step_norm)
 
 
-# ── Structural equivalence (fallback for non-equation steps) ─────────────────
+# ── Completing-the-square intermediate step solver ────────────────────────────
+
+def _solve_full_equation(step: str) -> set:
+    """
+    Solve a full 'LHS = RHS' equation where RHS may be non-zero.
+    e.g. 'x^2 + 6x = -5'  →  {-1, -5}
+         'x^2 + 6x + 9 = 4'  →  {-1, -5}
+         '(x+3)^2 = 4'  →  {-1, -5}
+    Unlike _solve_clause this does NOT strip the RHS.
+    """
+    step = step.strip()
+    norm = normalize_expression(step)
+    if '=' not in norm:
+        return set()
+    parts = norm.split('=', 1)
+    lhs = sympy_digitize(parts[0].strip())
+    rhs = sympy_digitize(parts[1].strip())
+    if lhs is None or rhs is None:
+        return set()
+    try:
+        sols = sp.solve(lhs - rhs, x)
+        result = set()
+        for s in sols:
+            try:
+                result.add(float(s.evalf()))
+            except Exception:
+                result.add(s)
+        return result
+    except Exception:
+        return set()
+
+
+def _is_solution_step(step: str) -> bool:
+    s = step.strip()
+    if re.search(r'\bor\b', s, re.IGNORECASE):
+        return True
+    if '±' in s or re.search(r'\+\s*[-/]\s*-?', s):
+        return True
+    return bool(re.match(r'^\s*x\s*=', s, re.IGNORECASE))
+
+
+def _is_standard_quadratic(step: str) -> bool:
+    norm = normalize_expression(step)
+    if not re.search(r'x\s*\*\*\s*2|x\^2', norm, re.IGNORECASE):
+        return False
+    if '=' not in norm:
+        return False
+    rhs_sym = sympy_digitize(norm.split('=', 1)[1].strip())
+    return rhs_sym is not None and rhs_sym == 0
+
+
+def _is_intermediate_step(step: str) -> bool:
+    if _is_solution_step(step) or _is_standard_quadratic(step):
+        return False
+    if '=' not in step:
+        return False
+    rhs_sym = sympy_digitize(normalize_expression(step.split('=', 1)[1].strip()))
+    if rhs_sym is None or rhs_sym == 0:
+        return False
+    return x not in rhs_sym.free_symbols
+
+
+# ── Structural equivalence (fallback) ────────────────────────────────────────
 
 def _expressions_equivalent(a, b) -> bool:
     if a is None or b is None:
@@ -130,10 +184,8 @@ def _solutions_close(s1: set, s2: set, tol: float = 1e-9) -> bool:
     """Compare two solution sets with floating-point tolerance."""
     if len(s1) != len(s2):
         return False
-    # Try exact match first
     if s1 == s2:
         return True
-    # Try approximate match
     try:
         list1 = sorted(float(v) for v in s1)
         list2 = sorted(float(v) for v in s2)
@@ -149,28 +201,36 @@ def validate_step_pair(step_prev: str, step_curr: str) -> dict:
     Validate that step_curr is a mathematically correct transformation of step_prev.
 
     Strategy:
-    1. Solve both steps for x and compare solution sets (primary method).
-       This handles quadratic formula, completing the square, ± notation,
-       OR/comma/space-separated solutions, factored forms — everything.
-    2. Fall back to structural expression equivalence for non-equation steps
-       (e.g. intermediate algebraic manipulations that aren't yet solved).
+    1. For completing-the-square intermediate steps, solve both full equations
+       (preserving RHS) and compare solution sets.
+    2. For standard steps, solve both for x and compare solution sets.
+    3. Fall back to structural equivalence for non-equation steps.
     """
+    # ── Strategy 1: intermediate steps (e.g. x^2+6x=-5, (x+3)^2=4) ──────────
+    if _is_intermediate_step(step_curr) or _is_intermediate_step(step_prev):
+        sols_prev = _solve_full_equation(step_prev)
+        sols_curr = _solve_full_equation(step_curr)
+        if sols_prev and sols_curr:
+            if _solutions_close(sols_prev, sols_curr):
+                return {"valid": True, "reason": "solution_sets_match"}
+            if sols_curr.issubset(sols_prev) and len(sols_curr) < len(sols_prev):
+                return {"valid": False, "reason": "missing_roots"}
+            return {"valid": False, "reason": "solution_sets_differ"}
+        # If either side can't be solved (e.g. irrational), fall through
+
+    # ── Strategy 2: standard step solving ────────────────────────────────────
     sols_prev = solve_step(step_prev)
     sols_curr = solve_step(step_curr)
 
-    # Both steps yield solutions → compare them
     if sols_prev and sols_curr:
         if _solutions_close(sols_prev, sols_curr):
             return {"valid": True, "reason": "solution_sets_match"}
-        # Allow subset: e.g. student shows one root from a two-root equation
-        # (but only if curr has fewer solutions — more would be wrong)
+        # Missing root: student has fewer correct solutions
         if sols_curr.issubset(sols_prev) and len(sols_curr) < len(sols_prev):
-            # This is actually an error (missing root) — mark invalid
             return {"valid": False, "reason": "missing_roots"}
         return {"valid": False, "reason": "solution_sets_differ"}
 
-    # Only prev has solutions (curr might be an intermediate algebraic step)
-    # Fall back to structural comparison via LHS
+    # ── Strategy 3: structural fallback ──────────────────────────────────────
     if sols_prev and not sols_curr:
         from .digitizer import digitize_step
         sym_prev = digitize_step(step_prev)
@@ -178,11 +238,8 @@ def validate_step_pair(step_prev: str, step_curr: str) -> dict:
         if sym_prev is not None and sym_curr is not None:
             is_eq = _expressions_equivalent(sym_prev, sym_curr)
             return {"valid": is_eq, "reason": "equivalent" if is_eq else "not_equivalent"}
-        # If we can't parse curr at all, it's probably wrong
         return {"valid": False, "reason": "parse_error_curr"}
 
-    # Neither step yields solutions (e.g. pure algebraic manipulation)
-    # Fall back to structural LHS comparison
     from .digitizer import digitize_step
     sym_prev = digitize_step(step_prev)
     sym_curr = digitize_step(step_curr)
@@ -208,7 +265,7 @@ def validate_all_steps(steps: list) -> list:
     return results
 
 
-# ── Legacy aliases (keep runner.py working unchanged) ─────────────────────────
+# ── Legacy aliases ────────────────────────────────────────────────────────────
 
 def is_or_step(step: str) -> bool:
     return bool(re.search(r'\bor\b', step, re.IGNORECASE))

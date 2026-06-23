@@ -31,6 +31,15 @@ def normalize_expression(expr: str) -> str:
     # Implied multiplication
     s = re.sub(r'\)\s*\(', ')*(', s)
     s = re.sub(r'(\d)\s*([a-zA-Z])', r'\1*\2', s)
+
+    # Collapse consecutive signs
+    prev = None
+    while prev != s:
+        prev = s
+        s = re.sub(r'\+\s*\+', '+', s)
+        s = re.sub(r'-\s*-', '+', s)
+        s = re.sub(r'\+\s*-', '-', s)
+        s = re.sub(r'-\s*\+', '-', s)
     return s
 
 

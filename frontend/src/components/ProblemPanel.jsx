@@ -37,47 +37,46 @@ function PresetPicker({ presets, selected, onSelect }) {
 
   return (
     <div>
-      {/* Difficulty tabs — pill toggle matching Preset/Custom style */}
-<div style={{
-  display: 'inline-flex',
-  background: 'var(--surf2)',
-  border: '1px solid var(--bdr)',
-  borderRadius: 10, padding: 3, gap: 3,
-  marginBottom: '.75rem',
-  width: '100%',
-}}>
-  {['Easy', 'Medium', 'Hard'].map(diff => {
-    const dc = DIFF_CONFIG[diff]
-    const active = activeTab === diff
-    return (
-      <button key={diff}
-        onClick={() => setActiveTab(diff)}
-        style={{
-          flex: 1,
-          background: active ? 'var(--surf)' : 'transparent',
-          border: active ? '1px solid var(--bdr)' : '1px solid transparent',
-          borderRadius: 7,
-          color: active ? dc.color : 'var(--muted)',
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
-          fontSize: '.82rem', fontWeight: active ? 600 : 400,
-          padding: '.3rem .6rem',
-          cursor: 'pointer', transition: 'all .15s',
-          boxShadow: active ? 'var(--shadow-sm)' : 'none',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '.35rem',
-        }}
-      >
-        <span style={{
-          width: 7, height: 7, borderRadius: '50%',
-          background: active ? dc.dot : 'var(--muted3)',
-          transition: 'background .15s',
-        }} />
-        {diff}
-      </button>
-    )
-  })}
-</div>
+      <div style={{
+        display: 'inline-flex',
+        background: 'var(--surf2)',
+        border: '1px solid var(--bdr)',
+        borderRadius: 10, padding: 3, gap: 3,
+        marginBottom: '.75rem',
+        width: '100%',
+      }}>
+        {['Easy', 'Medium', 'Hard'].map(diff => {
+          const dc = DIFF_CONFIG[diff]
+          const active = activeTab === diff
+          return (
+            <button key={diff}
+              onClick={() => setActiveTab(diff)}
+              onMouseDown={e => e.preventDefault()}
+              style={{
+                flex: 1,
+                background: active ? 'var(--surf)' : 'transparent',
+                border: active ? '1px solid var(--bdr)' : '1px solid transparent',
+                borderRadius: 7,
+                color: active ? dc.color : 'var(--muted)',
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize: '.82rem', fontWeight: active ? 600 : 400,
+                padding: '.3rem .6rem',
+                cursor: 'pointer', transition: 'all .15s',
+                boxShadow: active ? 'var(--shadow-sm)' : 'none',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '.35rem',
+              }}
+            >
+              <span style={{
+                width: 7, height: 7, borderRadius: '50%',
+                background: active ? dc.dot : 'var(--muted3)',
+                transition: 'background .15s',
+              }} />
+              {diff}
+            </button>
+          )
+        })}
+      </div>
 
-      {/* Equation cards grid */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '.4rem' }}>
         {tabPresets.map(p => {
           const dc = DIFF_CONFIG[p.difficulty]
@@ -85,6 +84,7 @@ function PresetPicker({ presets, selected, onSelect }) {
           return (
             <button key={p.i}
               onClick={() => onSelect(p.i)}
+              onMouseDown={e => e.preventDefault()}
               style={{
                 background: isSelected ? dc.activeBg : dc.bg,
                 border: `1.5px solid ${isSelected ? dc.dot : dc.border}`,
@@ -98,7 +98,6 @@ function PresetPicker({ presets, selected, onSelect }) {
               onMouseEnter={e => { if (!isSelected) e.currentTarget.style.borderColor = dc.dot }}
               onMouseLeave={e => { if (!isSelected) e.currentTarget.style.borderColor = dc.border }}
             >
-              {/* Selected check */}
               {isSelected && (
                 <div style={{
                   position: 'absolute', top: 5, right: 5,
@@ -124,7 +123,7 @@ function PresetPicker({ presets, selected, onSelect }) {
   )
 }
 
-export default function ProblemPanel({ problem, setProblem, loadPreset, onFocus }) {
+export default function ProblemPanel({ problem, setProblem, loadPreset, onFocus, registerInput }) {
   const [mode, setMode]         = useState('preset')
   const [presets, setPresets]   = useState([])
   const [selected, setSelected] = useState(0)
@@ -149,7 +148,6 @@ export default function ProblemPanel({ problem, setProblem, loadPreset, onFocus 
     <section style={{ marginBottom: '1.2rem' }}>
       <SectionLabel>01 · Problem</SectionLabel>
 
-      {/* Mode toggle */}
       <div style={{
         display: 'inline-flex',
         background: 'var(--surf2)',
@@ -160,6 +158,7 @@ export default function ProblemPanel({ problem, setProblem, loadPreset, onFocus 
         {['preset', 'custom'].map(m => (
           <button key={m}
             onClick={() => { setMode(m); if (m === 'custom') setProblem('') }}
+            onMouseDown={e => e.preventDefault()}
             style={{
               background: mode === m ? 'var(--surf)' : 'transparent',
               border: mode === m ? '1px solid var(--bdr)' : '1px solid transparent',
@@ -181,8 +180,6 @@ export default function ProblemPanel({ problem, setProblem, loadPreset, onFocus 
             selected={selected}
             onSelect={i => { setSelected(i); if (presets[i]) setProblem(presets[i].problem) }}
           />
-
-          {/* Load buttons */}
           {preset && (
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '.5rem', marginTop: '.85rem' }}>
               {[
@@ -191,6 +188,7 @@ export default function ProblemPanel({ problem, setProblem, loadPreset, onFocus 
               ].map(btn => (
                 <button key={btn.mode}
                   onClick={() => loadPreset(preset, btn.mode)}
+                  onMouseDown={e => e.preventDefault()}
                   style={{
                     background: btn.bg, border: `1px solid ${btn.border}`,
                     borderRadius: 'var(--radius-sm)', color: btn.color,
@@ -212,7 +210,12 @@ export default function ProblemPanel({ problem, setProblem, loadPreset, onFocus 
             value={problem}
             onChange={e => setProblem(e.target.value)}
             placeholder="e.g. x² − 5x + 6 = 0"
-            onFocus={() => { setFocused(true); onFocus('problem') }}
+            onFocus={() => {
+              setFocused(true)
+              onFocus('problem')
+              // Register this input so the symbol toolbar can target it directly
+              registerInput && registerInput(inputRef.current)
+            }}
             onBlur={() => setFocused(false)}
             style={{
               width: '100%', background: 'var(--surf)',
@@ -223,6 +226,7 @@ export default function ProblemPanel({ problem, setProblem, loadPreset, onFocus 
               outline: 'none', marginBottom: '.9rem',
               boxShadow: focused ? '0 0 0 3px rgba(37,99,235,.1)' : 'var(--shadow-sm)',
               transition: 'border-color .15s, box-shadow .15s',
+              boxSizing: 'border-box',
             }}
           />
           {problem && (

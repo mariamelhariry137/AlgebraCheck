@@ -12,7 +12,6 @@ ERROR_TYPES = [
     "Wrong sequence of steps", "Incomplete procedure", "Other"
 ]
 
-# Extremely direct system prompt — no room for narrative reasoning
 SYSTEM_PROMPT = (
     'Output ONLY a JSON object. No reasoning, no explanation, no other text.\n'
     'Format: {"error_type":"<type>","error_detail":"<one sentence>","confidence":<0-1>}\n'
@@ -22,14 +21,36 @@ SYSTEM_PROMPT = (
     'Incomplete procedure, Other.'
 )
 
-# Few-shot examples go in a separate user/assistant turn to force the pattern
 FEW_SHOT = [
-    {"role": "user",      "content": "Op:Factorization\nPrev:x^2-5x+6=0\nWrong:(x-2)(x+3)=0\nCorrect:(x-2)(x-3)=0"},
+   {"role": "user",      "content": "Op:Factorization\nPrev:x^2-5x+6=0\nWrong:(x-2)(x+3)=0\nCorrect:(x-2)(x-3)=0"},
     {"role": "assistant", "content": '{"error_type":"Wrong factors","error_detail":"Second factor should be (x-3) not (x+3); correct factors multiply to +6 and sum to -5.","confidence":0.97}'},
     {"role": "user",      "content": "Op:Apply Zero Product Rule\nPrev:(x-2)(x-3)=0\nWrong:x=2\nCorrect:x=2 OR x=3"},
     {"role": "assistant", "content": '{"error_type":"Missing root","error_detail":"Both factors must be set to zero; student only solved one, missing x=3.","confidence":0.98}'},
     {"role": "user",      "content": "Op:Simplify Radical\nPrev:x=(5+-sqrt(1))/2\nWrong:sqrt(12)=12\nCorrect:sqrt(12)=2*sqrt(3)"},
     {"role": "assistant", "content": '{"error_type":"Radical simplification error","error_detail":"sqrt(12) equals 2*sqrt(3) approximately 3.46, not 12.","confidence":0.97}'},
+    # Arithmetic after correct formula setup
+    {"role": "user",      "content": "Op:Evaluate Discriminant\nPrev:x=(-(-6)±√(36-0))/2\nWrong:36-0=40\nCorrect:36-0=36"},
+    {"role": "assistant", "content": '{"error_type":"Arithmetic mistake","error_detail":"36 minus 0 equals 36, not 40; basic subtraction error.","confidence":0.98}'},
+    # Incomplete procedure (stopped after factoring)
+    {"role": "user",      "content": "Op:Apply Zero Product Rule\nPrev:x^2-5x+6=0\nWrong:(x-2)(x-3)=0\nCorrect:x=2 OR x=3"},
+    {"role": "assistant", "content": '{"error_type":"Incomplete procedure","error_detail":"Student correctly factored but stopped without applying the zero product rule to find x.","confidence":0.95}'},
+    # Quadratic formula used instead of factoring — method choice error
+    {"role": "user",      "content": "Op:Factorization\nPrev:x^2+6x+5=0\nWrong:x=(-6±√(36-20))/2\nCorrect:(x+1)(x+5)=0"},
+    {"role": "assistant", "content": '{"error_type":"Quadratic formula misuse","error_detail":"Student applied the quadratic formula instead of factoring; the equation factors cleanly as (x+1)(x+5)=0.","confidence":0.95}'},
+    {"role":"user", "content":"Op:Apply Quadratic Formula\nPrev:x=(5±1)/2\nWrong:x=3\nCorrect:x=3 OR x=2"},
+    {"role":"assistant","content":'{"error_type":"Missing root","error_detail":"One solution was omitted.","confidence":0.98}'},
+    {"role":"user","content":"Op:Apply Quadratic Formula\nPrev:x=(-(-4)±√16)/2\nWrong:x=(4±5)/2\nCorrect:x=(4±4)/2"},
+    {"role":"assistant","content":'{"error_type":"Arithmetic mistake","error_detail":"sqrt(16)=4 not 5.","confidence":0.98}'},
+    {"role":"user","content":"Op:Apply Quadratic Formula\nPrev:x^2-5x+6=0\nWrong:x=(5±√(25+24))/2\nCorrect:x=(5±√(25-24))/2"},
+    {"role":"assistant","content":'{"error_type":"Discriminant error","error_detail":"Used the wrong sign in the discriminant.","confidence":0.98}'},
+    {"role":"user","content":"Op:Simplify Radical\nPrev:x=(4±√49)/2\nWrong:x=(4±49)/2\nCorrect:x=(4±7)/2"},
+    {"role":"user", "content":"Op:Apply Quadratic Formula\nPrev:x=(-(-4)±√16)/2\nWrong:x=(-4±4)/2\nCorrect:x=(4±4)/2"},
+    # √N written as N (forgot to take square root)
+    {"role": "user",      "content": "Op:Simplify Radical\nPrev:(x+1)^2=64\nWrong:x+1=±64\nCorrect:x+1=±8"},
+    {"role": "assistant", "content": '{"error_type":"Radical simplification error","error_detail":"sqrt(64)=8 not 64; student used the radicand instead of its square root.","confidence":0.98}'},
+    # Discriminant sign error
+    {"role": "user",      "content": "Op:Apply Quadratic Formula\nPrev:x^2-5x+4=0\nWrong:x=(5±√(25+16))/2\nCorrect:x=(5±√(25-16))/2"},
+    {"role": "assistant", "content": '{"error_type":"Discriminant error","error_detail":"Used b^2+4ac instead of b^2-4ac in the discriminant; sign should be minus.","confidence":0.97}'},
 ]
 
 
@@ -63,26 +84,21 @@ def _extract_json(raw: str) -> dict:
     raw = _clean_raw(raw)
     if not raw:
         raise ValueError("Empty response after cleaning")
-
-    # Direct parse
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
         pass
-
-    # Find the last { ... } block — model may prepend text despite instructions
     matches = list(re.finditer(r'\{[^{}]+\}', raw, re.DOTALL))
     if matches:
-        for m in reversed(matches):   # try last JSON object first
+        for m in reversed(matches):
             try:
                 return json.loads(m.group())
             except json.JSONDecodeError:
                 continue
-
     raise ValueError(f"No valid JSON found in: {raw[:200]}")
 
 
-# ── SymPy helpers (unchanged from original) ───────────────────────────────────
+# ── SymPy helpers ─────────────────────────────────────────────────────────────
 
 def to_sympy_notation(expr: str) -> str:
     expr = re.sub(r"=\s*0", "", expr).strip()
@@ -110,7 +126,7 @@ def validate_arithmetic(expr: str):
 def validate_factorization(equation: str, factored: str):
     try:
         orig = parse_expr(to_sympy_notation(equation), transformations=standard_transformations, local_dict={"x": x})
-        fact = parse_expr(to_sympy_notation(factored), transformations=standard_transformations, local_dict={"x": x})
+        fact = parse_expr(to_sympy_notation(factored),  transformations=standard_transformations, local_dict={"x": x})
         return simplify(expand(fact) - orig) == 0
     except Exception:
         return None
@@ -135,9 +151,28 @@ def get_error_context(steps: list, err_idx: int) -> dict:
 
 
 def _rule_fallback(step_prev, step_wrong, operation, correct_continuation):
+    """
+    Rule-based fallback matching classifier.py fallback for consistency.
+    Returns error_detector shaped dict.
+    """
     correct = correct_continuation[0] if correct_continuation else "unknown"
+    op = (operation or "").lower()
+
+    if "zero product" in op:
+        etype = "Missing root"
+    elif "factor" in op:
+        etype = "Wrong factors"
+    elif "discriminant" in op or "quadratic formula" in op:
+        etype = "Discriminant error"
+    elif "radical" in op or "sqrt" in op or "simplif" in op:
+        etype = "Radical simplification error"
+    elif "completing" in op or "square" in op:
+        etype = "Incomplete procedure"
+    else:
+        etype = "Other"
+
     return {
-        "error_type":     "Other",
+        "error_type":     etype,
         "specific_error": f"'{step_wrong}' is not a valid transformation of '{step_prev}'.",
         "correct_step":   correct,
         "reasoning":      f"{operation} was applied incorrectly."
@@ -170,8 +205,7 @@ def detect_error_o1(step_prev: str, step_wrong: str, operation: str,
                 model="qwen/qwen3-32b",
                 messages=messages,
                 temperature=0,
-                max_tokens=120,   # force short output — no room for narrative
-                # NO response_format — causes json_validate_failed
+                max_tokens=200,   # increased from 120 to prevent truncation
             )
             raw = response.choices[0].message.content.strip()
             result = _extract_json(raw)
@@ -179,7 +213,6 @@ def detect_error_o1(step_prev: str, step_wrong: str, operation: str,
             if result.get("error_type") not in ERROR_TYPES:
                 result["error_type"] = "Other"
 
-            # Normalise field names
             result.setdefault("specific_error", result.get("error_detail", ""))
             result.setdefault("correct_step",   correct_continuation[0] if correct_continuation else "")
             result.setdefault("reasoning",      result.get("error_detail", ""))

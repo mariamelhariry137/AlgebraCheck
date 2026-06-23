@@ -1,11 +1,9 @@
-"""
-AlgebraCheck — FastAPI Backend
-"""
+"""AlgebraCheck — FastAPI Backend"""
 import os
 import traceback
 from dotenv import load_dotenv
 
-load_dotenv()  # must be before any pipeline imports
+load_dotenv()
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -17,10 +15,9 @@ from pipeline.runner import run_pipeline
 
 print("GROQ_API_KEY loaded:", bool(os.getenv("GROQ_API_KEY")))
 
-# ── Single app instance ───────────────────────────────────────────────────────
-
 app = FastAPI(title="AlgebraCheck API", version="1.0.0")
 
+# Single CORSMiddleware registration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://localhost:3000", "*"],
@@ -30,7 +27,7 @@ app.add_middleware(
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
-    traceback.print_exc()  # full traceback in terminal
+    traceback.print_exc()
     return JSONResponse(status_code=500, content={"error": str(exc)})
 
 
@@ -75,17 +72,15 @@ def health():
     return {
         "status": "ok",
         "groq_configured": groq_configured,
-        # Keep this key so frontend doesn't break if it checks it
-        "openai_configured": groq_configured,
-        "mode": "full (Groq/Qwen3)" if groq_configured else "fallback (rule-based)"
+        "openai_configured": groq_configured,   # kept for frontend compatibility
+        "mode": "full (Groq/Qwen3+Llama)" if groq_configured else "fallback (rule-based)"
     }
+
 
 @app.get("/presets", response_model=List[PresetItem])
 def get_presets():
     return [
         # ── Easy ──────────────────────────────────────────────────────────────
-
-        # Factorization 1
         {
             "difficulty": "Easy",
             "label":   "x² − 5x + 6 = 0  (Factorization)",
@@ -93,7 +88,6 @@ def get_presets():
             "correct": ["x^2 - 5x + 6 = 0", "(x-2)*(x-3) = 0", "x-2=0 OR x-3=0", "x=2 OR x=3"],
             "error":   ["x^2 - 5x + 6 = 0", "(x-2)*(x+3) = 0", "x-2=0 OR x+3=0", "x=2 OR x=-3"],
         },
-        # Factorization 2
         {
             "difficulty": "Easy",
             "label":   "x² + 5x + 6 = 0  (Factorization)",
@@ -101,7 +95,6 @@ def get_presets():
             "correct": ["x^2 + 5x + 6 = 0", "(x+2)*(x+3) = 0", "x+2=0 OR x+3=0", "x=-2 OR x=-3"],
             "error":   ["x^2 + 5x + 6 = 0", "(x+2)*(x+3) = 0", "x+2=0 OR x+3=0", "x=2 OR x=3"],
         },
-        # Completing the Square
         {
             "difficulty": "Easy",
             "label":   "x² + 4x = 0  (Completing the Square)",
@@ -109,7 +102,6 @@ def get_presets():
             "correct": ["x^2 + 4x = 0", "x^2 + 4x + 4 = 4", "(x+2)^2 = 4", "x+2 = 2 OR x+2 = -2", "x=0 OR x=-4"],
             "error":   ["x^2 + 4x = 0", "x^2 + 4x + 4 = 4", "(x+2)^2 = 4", "x+2 = 2 OR x+2 = -2", "x=2 OR x=-2"],
         },
-        # Quadratic Formula
         {
             "difficulty": "Easy",
             "label":   "x² − 3x + 2 = 0  (Quadratic Formula)",
@@ -117,10 +109,7 @@ def get_presets():
             "correct": ["x^2 - 3x + 2 = 0", "x = (3 ± sqrt(9 - 8)) / 2", "x = (3 ± sqrt(1)) / 2", "x = (3 ± 1) / 2", "x=2 OR x=1"],
             "error":   ["x^2 - 3x + 2 = 0", "x = (3 ± sqrt(9 - 8)) / 2", "x = (3 ± sqrt(1)) / 2", "x = (3 ± 1) / 2", "x=4 OR x=2"],
         },
-
         # ── Medium ────────────────────────────────────────────────────────────
-
-        # Factorization 1
         {
             "difficulty": "Medium",
             "label":   "x² + 2x − 8 = 0  (Factorization)",
@@ -128,7 +117,6 @@ def get_presets():
             "correct": ["x^2 + 2x - 8 = 0", "(x+4)*(x-2) = 0", "x+4=0 OR x-2=0", "x=-4 OR x=2"],
             "error":   ["x^2 + 2x - 8 = 0", "(x+4)*(x+2) = 0", "x+4=0 OR x+2=0", "x=-4 OR x=-2"],
         },
-        # Factorization 2
         {
             "difficulty": "Medium",
             "label":   "x² − x − 12 = 0  (Factorization)",
@@ -136,7 +124,6 @@ def get_presets():
             "correct": ["x^2 - x - 12 = 0", "(x-4)*(x+3) = 0", "x-4=0 OR x+3=0", "x=4 OR x=-3"],
             "error":   ["x^2 - x - 12 = 0", "(x+4)*(x-3) = 0", "x+4=0 OR x-3=0", "x=-4 OR x=3"],
         },
-        # Completing the Square
         {
             "difficulty": "Medium",
             "label":   "x² + 6x + 5 = 0  (Completing the Square)",
@@ -144,7 +131,6 @@ def get_presets():
             "correct": ["x^2 + 6x + 5 = 0", "x^2 + 6x = -5", "x^2 + 6x + 9 = 4", "(x+3)^2 = 4", "x+3 = 2 OR x+3 = -2", "x=-1 OR x=-5"],
             "error":   ["x^2 + 6x + 5 = 0", "x^2 + 6x = -5", "x^2 + 6x + 9 = 4", "(x+3)^2 = 4", "x+3 = 2 OR x+3 = -2", "x=1 OR x=5"],
         },
-        # Quadratic Formula
         {
             "difficulty": "Medium",
             "label":   "x² − 5x + 4 = 0  (Quadratic Formula)",
@@ -152,10 +138,7 @@ def get_presets():
             "correct": ["x^2 - 5x + 4 = 0", "x = (5 ± sqrt(25 - 16)) / 2", "x = (5 ± sqrt(9)) / 2", "x = (5 ± 3) / 2", "x=4 OR x=1"],
             "error":   ["x^2 - 5x + 4 = 0", "x = (5 ± sqrt(25 - 16)) / 2", "x = (5 ± sqrt(9)) / 2", "x = (5 ± 3) / 2", "x=8 OR x=2"],
         },
-
         # ── Hard ──────────────────────────────────────────────────────────────
-
-        # Factorization 1
         {
             "difficulty": "Hard",
             "label":   "2x² − 5x + 3 = 0  (Factorization)",
@@ -163,7 +146,6 @@ def get_presets():
             "correct": ["2x^2 - 5x + 3 = 0", "(2x-3)*(x-1) = 0", "2x-3=0 OR x-1=0", "x=3/2 OR x=1"],
             "error":   ["2x^2 - 5x + 3 = 0", "(2x-3)*(x-1) = 0", "2x-3=0 OR x-1=0", "x=3 OR x=1"],
         },
-        # Factorization 2
         {
             "difficulty": "Hard",
             "label":   "3x² − 7x + 2 = 0  (Factorization)",
@@ -171,7 +153,6 @@ def get_presets():
             "correct": ["3x^2 - 7x + 2 = 0", "(3x-1)*(x-2) = 0", "3x-1=0 OR x-2=0", "x=1/3 OR x=2"],
             "error":   ["3x^2 - 7x + 2 = 0", "(3x-1)*(x-2) = 0", "3x-1=0 OR x-2=0", "x=1 OR x=2"],
         },
-        # Completing the Square
         {
             "difficulty": "Hard",
             "label":   "x² − 4x + 1 = 0  (Completing the Square)",
@@ -179,7 +160,6 @@ def get_presets():
             "correct": ["x^2 - 4x + 1 = 0", "x^2 - 4x = -1", "x^2 - 4x + 4 = 3", "(x-2)^2 = 3", "x-2 = sqrt(3) OR x-2 = -sqrt(3)", "x = 2+sqrt(3) OR x = 2-sqrt(3)"],
             "error":   ["x^2 - 4x + 1 = 0", "x^2 - 4x = -1", "x^2 - 4x + 4 = 3", "(x-2)^2 = 3", "x-2 = sqrt(3) OR x-2 = -sqrt(3)", "x = sqrt(3) OR x = -sqrt(3)"],
         },
-        # Quadratic Formula
         {
             "difficulty": "Hard",
             "label":   "2x² + 3x − 2 = 0  (Quadratic Formula)",
@@ -189,12 +169,6 @@ def get_presets():
         },
     ]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 @app.post("/analyze")
 def analyze(req: AnalyzeRequest):
